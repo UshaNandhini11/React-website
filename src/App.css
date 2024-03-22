@@ -1,0 +1,58 @@
+.header {
+    height: 80px;
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hamburger {
+    background-color: transparent;
+    height: 80px;
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 30px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.headerLeft {
+    height: 80px;
+    width: 50%;
+    background-color: transparent;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+h1 {
+    color: rgb(0, 129, 129);
+    font-family: 'Milonga', cursive;
+    font-weight: 400;
+    font-size: 20px;
+    word-spacing: 5px;
+    /* margin-top: 50px;
+    margin-bottom: 50px; */
+    text-transform: capitalize;
+    margin: 50px;
+}
+
+.navigation {
+    background-color: aquamarine;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.navigation link {
+    font-size: 30px;
+}
+
+.menuItems {
+    height: 200px;
+    width: 100px;
+    /* background-color: aqua; */
+}
