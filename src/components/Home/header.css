@@ -1,0 +1,124 @@
+.header {
+    height: 80px;
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hamburger {
+    background-color: transparent;
+    height: 80px;
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 30px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.headerLeft {
+    height: 80px;
+    width: 50%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: rgb(0, 129, 129);
+    font-family: 'Milonga', cursive;
+    font-weight: 400;
+    font-size: 20px;
+    word-spacing: 5px;
+    text-transform: capitalize;
+    margin: 50px;
+}
+
+.navigation {
+    background-color: aquamarine;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.navigation link {
+    font-size: 30px;
+}
+
+.menuItems {
+    height: 200px;
+    width: 100px;
+}
+
+.loginForm {
+    height: 100vh;
+    width: 100%;
+    background-color: lightseagreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Milonga', cursive;
+}
+
+.reactForm {
+    width: 50%;
+    padding: 20px;
+    background-color: honeydew;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+}
+
+.label {
+    width: 50%;
+    display: flex;
+    /* font-size: 0px; */
+}
+
+.inputTextBox {
+    padding: 20px;
+}
+
+.fonts {
+    font-family: "Montserrat", sans-serif;
+}
+
+.signUp {
+    background-color: honeydew;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.signupform {
+    background-color: beige;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.inputblock {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    width: 100%;
+    /* font-size: 50px; */
+}
