@@ -2,10 +2,27 @@ import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
     return (
         <div>
+            <header className="header">
+                <Box className="headerLeft">
+                    <h1>Welcome to our Product</h1>
+                </Box>
+                <Box className="headerLeft">
+                    <Button variant='contained' onClick={() => {
+                        handleLogout()
+                    }}>Logout</Button>
+                </Box>
+            </header>
             <Box className="signUp">
                 <div>
                     <form action="" className="signupform">
