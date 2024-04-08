@@ -17,22 +17,22 @@ export function login(username: string, password: string): Promise<User> {
 }
 
 function userInfoToUserEntity(response: any) {
-    let userData = new User()
+    let user = new User()
     let username = response.username
     if (username) {
-        userData.username = username
+        user.username = username
     }
     let id = response.id
     if (id) {
-        userData.id = id
+        user.id = id
     }
     let email = response.email
     if (email) {
-        userData.email = email
+        user.email = email
     }
     let token = response.token
     if (token) {
-        userData.token = token
+        user.token = token
     }
-    return userData
+    return user
 }

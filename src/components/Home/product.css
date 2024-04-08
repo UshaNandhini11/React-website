@@ -1,3 +1,9 @@
+.product {
+    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+}
+
 header h1 {
     font-size: 30px;
     text-align: center;
@@ -5,14 +11,68 @@ header h1 {
 
 .productList {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
+    background-color: transparent;
+}
+
+.product-card-cover {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: transparent;
+}
+
+.product-card {
+    height: 500px;
+    width: 24%;
+    background-color: whitesmoke;
+    padding: 20px;
+    margin: 10px;
+}
+
+.product-card h2 {
+    display: flex;
     justify-content: center;
 }
 
-.product {
-    height: 300px;
-    width: 300px;
-    background-color: springgreen;
-    padding: 20px;
-    margin: 10px;
+.product-details {
+    display: flex;
+    width: 100%;
+    background-color: darkgoldenrod;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.categories {
+    /* width: 100%; */
+    background-color: salmon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* background-color: fuchsia; */
+    /* flex-wrap: wrap; */
+}
+
+.category-card {
+    background-color: aqua;
+    width: 120px;
+    display: block;
+    margin: 5px;
+    flex-wrap: wrap;
+    padding: 0px 5px;
+}
+
+.category-card p {
+    font-size: 20px;
+    text-align: justify;
+    text-transform: capitalize;
+    cursor: pointer;
+
 }

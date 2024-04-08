@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ProductCategory from "./ProductCategory";
 
 export default function AppDrawer() {
     const [open, setOpen] = useState(false);
@@ -27,7 +28,6 @@ export default function AppDrawer() {
             <Box className="headerLeft">
                 <h1>Welcome to our Page</h1>
             </Box>
-
             <div className="headerLeft">
                 {/* <IconButton type="submit" aria-label="search">
                     <i className="fas fa-search"></i>
@@ -45,17 +45,17 @@ export default function AppDrawer() {
                     handleLogout()
                 }}>Logout</Button>
             </Box>
-
         </Box>
         <Box >
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 <nav className="navigation">
-                    <Link to='/' style={{ fontSize: '30px', textDecoration: 'none' }} > Products</Link>
-                    <Link to='/contact' style={{ fontSize: '30px', textDecoration: 'none' }}> Contact</Link>
-                    <Link to='/portfolio' style={{ fontSize: '30px', textDecoration: 'none' }}> Portfolio</Link >
+                    <Link to='/' style={{ fontSize: '20px', textDecoration: 'none' }} > Products</Link>
+                    <Link to='/contact' style={{ fontSize: '20px', textDecoration: 'none' }}> Contact</Link>
+                    <Link to='/portfolio' style={{ fontSize: '20px', textDecoration: 'none' }}> Portfolio</Link >
                     <Link to='/' > Back to Home</Link >
                 </nav >
             </Drawer>
         </Box>
+        <ProductCategory />
     </>)
 }

@@ -10,6 +10,7 @@ import DrawerComponent from './components/Home/Drawer'
 import PrivateRouter from './router/PrivateRouter'
 import { ReactElement } from 'react'
 import PublicRouter from './router/PublicRouter'
+import { Key } from '@mui/icons-material'
 
 export interface RouterProps {
   name: string,
@@ -42,9 +43,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<PrivateRouter />}>
-            {routes.map(route => (
+            {routes.map((route, index) => (
               <Route path={route.path}
-                element={route.element} />
+                element={route.element} key={index} />
             ))}
           </Route>
           <Route element={<PublicRouter />}>

@@ -26,7 +26,7 @@ export default function Login() {
         try {
             let response = await login(userName, password)
             localStorage.setItem('token', response.token)
-            console.log(localStorage.getItem('token'))
+            // console.log(localStorage.getItem('token'))
             navigate('/')
         } catch (error) {
             alert(error)
