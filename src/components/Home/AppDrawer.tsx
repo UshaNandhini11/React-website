@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import ProductCategory from "./ProductCategory";
 
 export default function AppDrawer() {
     const [open, setOpen] = useState(false);
@@ -56,6 +55,5 @@ export default function AppDrawer() {
                 </nav >
             </Drawer>
         </Box>
-        <ProductCategory />
     </>)
 }

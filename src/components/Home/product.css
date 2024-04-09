@@ -23,6 +23,10 @@ header h1 {
     background-color: transparent;
 }
 
+.product-card-cover:hover {
+    cursor: pointer;
+}
+
 .product-card {
     height: 500px;
     width: 24%;
@@ -36,7 +40,7 @@ header h1 {
     justify-content: center;
 }
 
-.product-details {
+.product-info {
     display: flex;
     width: 100%;
     background-color: darkgoldenrod;
@@ -56,13 +60,10 @@ header h1 {
     width: 100%;
     display: flex;
     justify-content: center;
-    /* background-color: fuchsia; */
-    /* flex-wrap: wrap; */
 }
 
 .category-card {
-    background-color: aqua;
-    width: 120px;
+    background-color: pink;
     display: block;
     margin: 5px;
     flex-wrap: wrap;
@@ -71,8 +72,39 @@ header h1 {
 
 .category-card p {
     font-size: 20px;
-    text-align: justify;
+    text-align: center;
     text-transform: capitalize;
-    cursor: pointer;
+}
 
+.product-details {
+    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px;
+    padding: 20px;
+}
+
+.product-name .product-details p {
+    font-size: 40px;
+    font-weight: 500;
+    flex-wrap: wrap;
+    background-color: springgreen;
+}
+
+.product-details p {
+    font-size: 20px;
+    font-weight: 500;
+    flex-wrap: wrap;
+    background-color: transparent;
+}
+
+label {
+    font-size: 25px;
+}
+
+.product-img {
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
 }

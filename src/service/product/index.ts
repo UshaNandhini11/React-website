@@ -11,6 +11,16 @@ export function getProductList(): Promise<Product[]> {
         }
     })
 }
+export function getProductById(id: number): Promise<Product> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axios.get(`https://dummyjson.com/products/${id}`)
+            resolve(productInfoToProductEntity(response.data))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 function productsInfosToProductsEntities(productsInfos: any): Product[] {
     let products: Product[] = productsInfos.map((productInfo: Product) => productInfoToProductEntity(productInfo))
@@ -54,6 +64,14 @@ function productInfoToProductEntity(productInfo: any): Product {
     let images = productInfo.images
     if (images) {
         product.images = images
+    }
+    let stock = productInfo.stock
+    if (stock) {
+        product.stock = stock
+    }
+    let discountPercentage = productInfo.discountPercentage
+    if (discountPercentage) {
+        product.discountPercentage = discountPercentage
     }
 
     return product

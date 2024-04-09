@@ -6,6 +6,8 @@ export class Product {
     rating: number
     brand: string
     category: string
+    discountPercentage: number
     thumbnail: string
     images: string[]
+    stock: number
 }

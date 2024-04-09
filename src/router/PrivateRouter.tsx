@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router";
-import AppDrawer from "../components/Home/Drawer";
+import AppDrawer from "../components/Home/AppDrawer";
 
 export default function PrivateRouter() {
     const token = localStorage.getItem('token')

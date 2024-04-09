@@ -6,11 +6,11 @@ import Products from './components/Home/Products'
 import Contact from './components/Contact'
 import Portfolio from './components/Portfolio'
 import SignUp from './components/Signup'
-import DrawerComponent from './components/Home/Drawer'
+import DrawerComponent from './components/Home/AppDrawer'
 import PrivateRouter from './router/PrivateRouter'
 import { ReactElement } from 'react'
 import PublicRouter from './router/PublicRouter'
-import { Key } from '@mui/icons-material'
+import ProductDetails from './components/ProductDetails'
 
 export interface RouterProps {
   name: string,
@@ -24,6 +24,11 @@ function App() {
       name: "Products",
       path: "/",
       element: <Products />
+    },
+    {
+      name: "ProductDetails",
+      path: "/productDetails",
+      element: <ProductDetails />
     },
     {
       name: "Contacts",
