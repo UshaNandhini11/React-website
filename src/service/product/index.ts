@@ -21,6 +21,16 @@ export function getProductById(id: number): Promise<Product> {
         }
     })
 }
+export function addProduct(payload: Product): Promise<Product> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axios.post('https://dummyjson.com/products/add', payload)
+            resolve(productInfoToProductEntity(response.data))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 function productsInfosToProductsEntities(productsInfos: any): Product[] {
     let products: Product[] = productsInfos.map((productInfo: Product) => productInfoToProductEntity(productInfo))

@@ -2,11 +2,30 @@
     background-color: lightblue;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 header h1 {
     font-size: 30px;
     text-align: center;
+    margin-top: 30px;
+    /* background-color: slateblue; */
+}
+
+.product-header {
+    display: flex;
+    height: 100px;
+    width: 100%;
+    /* flex-direction: row; */
+    justify-content: space-around;
+    /* background-color: hotpink; */
+}
+
+button {
+    height: 50px;
+    padding: 5px 20px;
+    margin-top: 25px;
 }
 
 .productList {
@@ -107,4 +126,28 @@ label {
     display: flex;
     margin: 5px;
     flex-direction: column;
+}
+
+.add-product {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    /* background-color: chartreuse; */
+}
+
+#brand,
+#category {
+    padding: 25px 90px;
+}
+
+textarea {
+    resize: none;
+}
+
+.label {
+    font-size: 25px;
 }

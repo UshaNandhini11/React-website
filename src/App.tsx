@@ -11,6 +11,7 @@ import PrivateRouter from './router/PrivateRouter'
 import { ReactElement } from 'react'
 import PublicRouter from './router/PublicRouter'
 import ProductDetails from './components/ProductDetails'
+import AddProduct from './components/Home/AddProduct'
 
 export interface RouterProps {
   name: string,
@@ -29,6 +30,11 @@ function App() {
       name: "ProductDetails",
       path: "/productDetails",
       element: <ProductDetails />
+    },
+    {
+      name: "AddProduct",
+      path: "/addProduct",
+      element: <AddProduct />
     },
     {
       name: "Contacts",
