@@ -10,7 +10,19 @@ import { useNavigate } from 'react-router-dom';
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<string[]>()
+    const [brands, setBrands] = useState<string[]>()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        getProducts();
+    }, []);
+
+    useEffect(() => {
+        if (products?.length > 0) {
+            getProductsCategories();
+            getBrands();
+        }
+    }, [products])
 
     const getProducts = async () => {
         try {
@@ -26,23 +38,21 @@ export default function Products() {
                 currentValue.indexOf(value) === index)
             setCategories(category)
         } catch (error) {
-            console.log(error)
+            console.log("Error in getCategories::" + error)
+        }
+    }
+    const getBrands = async () => {
+        try {
+            let brand = products.map((element) => element.brand).filter((value, index, currentValue) =>
+                currentValue.indexOf(value) === index)
+            setBrands(brand)
+        } catch (error) {
+            console.log("Error in getbrands::" + error)
         }
     }
     const handleAddProduct = () => {
-        navigate('/addProduct', { state: { mode: 'add' } })
-        // navigate('/addProduct', { state: { categories: categories } })
+        navigate('/addProduct', { state: { mode: 'add', categories: categories, brands: brands } })
     }
-
-    useEffect(() => {
-        getProducts();
-    }, []);
-
-    useEffect(() => {
-        if (products?.length > 0) {
-            getProductsCategories();
-        }
-    }, [products])
     return (<>
         <div>
             <div className="categories">
@@ -72,6 +82,8 @@ export default function Products() {
                                         key={index}
                                         index={index}
                                         product={product}
+                                        categories={categories}
+                                        brands={brands}
                                     />
                                 )
                             })

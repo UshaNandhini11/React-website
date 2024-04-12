@@ -15,7 +15,6 @@ export default function AddProduct() {
     const [rating, setRating] = useState<number>(0)
     const [discount, setDiscount] = useState<number>(0)
     const [stock, setStock] = useState<number>(0)
-    const [thumbnail, setThumbnail] = useState<string>()
     const [isProductAdded, setIsProductAdded] = useState<boolean>(false)
     const [isTitleError, setIsTitleError] = useState<boolean>(false)
     const [titleErrorText, setTitleErrorText] = useState<string>()
@@ -25,13 +24,10 @@ export default function AddProduct() {
     const [categoryErrorText, setCategoryErrorText] = useState<string>()
     const [isPriceError, setIspriceError] = useState<boolean>(false)
     const [priceErrorText, setPriceErrorText] = useState<string>()
-    const [isDescriptionError, setIsDescriptionError] = useState<boolean>(false)
-    const [descriptionErrorText, setDescriptionErrorText] = useState<string>()
     const [isStockError, setIsStockError] = useState<boolean>(false)
     const [stockErrorText, setStockErrorText] = useState<string>()
 
     useEffect(() => {
-        console.log("Mode :::" + location.state.mode)
         if (location.state.mode == 'edit') {
             getProductDetailsById(location.state.id)
         }
@@ -50,7 +46,6 @@ export default function AddProduct() {
         setDescription(event.target.value)
     }
     const handleBrand = (event: SelectChangeEvent<string>) => {
-        console.log("brand:::" + event.target.value)
         setBrand(event.target.value)
     }
     const handleCategory = (event: SelectChangeEvent<string>) => {
@@ -115,8 +110,7 @@ export default function AddProduct() {
         if (validateForm(product)) {
             let response: Product;
             if (location.state.mode == 'edit') {
-                product.id = location.state.id
-                response = await updateProduct(product.id, product)
+                response = await updateProduct(location.state.id, product)
             } else {
                 response = await addProduct(product)
             }
@@ -134,7 +128,6 @@ export default function AddProduct() {
             setBrand(response.brand)
             setPrice(response.price)
             setDiscount(response.discountPercentage)
-
             setRating(response.rating)
             setCategory(response.category)
             setDescription(response.description)
@@ -188,21 +181,13 @@ export default function AddProduct() {
                             placeholder="select Brand"
                             error={isBrandError}
                             onChange={(event) => { handleBrand(event) }} >
-                            <MenuItem value="Apple">Apple</MenuItem>
-                            <MenuItem value="Samsung">Samsung</MenuItem>
-                            <MenuItem value="Vivo">Vivo</MenuItem>
-                            <MenuItem value="OnePlus">OnePlus</MenuItem>
-                            <MenuItem value="OPPO">OPPO</MenuItem>
-                            <MenuItem value="Huawei">Huawei</MenuItem>
-                            <MenuItem value="L'Oreal Paris">L'Oreal Paris</MenuItem>
-                            <MenuItem value="Hemani Tea">Hemani Tea</MenuItem>
-                            <MenuItem value="Dermive">Dermive</MenuItem>
-                            <MenuItem value="Infinix">Infinix</MenuItem>
-                            {/* Microsoft Surface
-                            HP Pavilion
-                            Impression of Acqua Di Gio
-                            Royal_Mirage
-                            Fog Scent Xpressio */}
+                            {
+                                location.state.brands.map((brand: string, index: number) => {
+                                    return (
+                                        <MenuItem key={index} value={brand}>{brand}</MenuItem>
+                                    )
+                                })
+                            }
                         </Select>
                         <FormHelperText>{brandErrorText}</FormHelperText><br />
 
@@ -243,10 +228,13 @@ export default function AddProduct() {
                             error={isCategoryError}
                             placeholder="select Category"
                             onChange={(event) => { handleCategory(event) }} >
-                            <MenuItem value="skincare">skincare</MenuItem>
-                            <MenuItem value="smartphones">Smartphones</MenuItem>
-                            <MenuItem value="laptops">Laptops</MenuItem>
-                            <MenuItem value="Home-decors">Home-decors</MenuItem>
+                            {
+                                location.state.categories.map((category: string, index: number) => {
+                                    return (
+                                        <MenuItem key={index} value={category}>{category}</MenuItem>
+                                    )
+                                })
+                            }
                         </Select>
                         <FormHelperText>{categoryErrorText}</FormHelperText><br />
                         <br />
@@ -277,12 +265,9 @@ export default function AddProduct() {
                                     <Button onClick={() => handleFormData()} variant="contained">Update</Button>
                                 </>)
                         }
-
                     </form>
                 </div>
             </div>
         </Container >
     )
 }
-
-

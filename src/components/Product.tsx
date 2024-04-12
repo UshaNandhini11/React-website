@@ -4,23 +4,31 @@ import { Product } from "../entity/products"
 interface ProductProps {
     index: number
     product: Product
+    categories: string[] | undefined
+    brands: String[] | undefined
 }
 export default function ProductComponent(props: ProductProps) {
     const navigate = useNavigate()
 
-    const handleClick = (id: number) => {
-        navigate('/productDetails', { state: { id: id } })
+    const handleClick = () => {
+        navigate('/productDetails', { state: { id: props.product.id } })
     }
     const handleEdit = () => {
-        navigate('/addProduct', { state: { mode: 'edit', id: props.product.id } })
+        navigate('/addProduct', {
+            state: {
+                mode: 'edit',
+                id: props.product.id,
+                categories: props.categories,
+                brands: props.brands
+            }
+        })
     }
-
     return (<>
         <div className="productContent">
             <div className="edit-icon" onClick={() => { handleEdit() }}><i className="fas fa-edit"></i></div>
-            <div className="product-card" key={props.index}
+            <div className="product-card" key={props.product.id}
                 onClick={() => {
-                    handleClick(props.index + 1)
+                    handleClick()
                 }} >
                 <div style={{ position: 'relative' }}>
                     <img src={props.product.thumbnail} alt="img1" height={280} width={570} />
