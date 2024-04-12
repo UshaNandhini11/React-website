@@ -32,13 +32,14 @@ button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: transparent;
+    /* background-color: honeydew; */
 }
 
 .product-card-cover {
     width: 80%;
     display: flex;
     flex-wrap: wrap;
+    /* justify-content: center; */
     background-color: transparent;
 }
 
@@ -46,17 +47,29 @@ button {
     cursor: pointer;
 }
 
+.productContent {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    margin: 10px;
+    position: relative;
+}
+
 .product-card {
     height: 500px;
-    width: 24%;
+    width: 616px;
     background-color: whitesmoke;
     padding: 20px;
-    margin: 10px;
+    margin: 40px 20px;
+    position: relative;
 }
 
 .product-card h2 {
     display: flex;
     justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    /* background-color: darkblue; */
 }
 
 .product-info {
@@ -150,4 +163,17 @@ textarea {
 
 .label {
     font-size: 25px;
+}
+
+.edit-icon {
+    height: 30px;
+    width: 650px;
+    display: flex;
+    font-size: 20px;
+    justify-content: end;
+    margin-bottom: 10px;
+    background-color: transparent;
+    position: absolute;
+    top: 15px;
+    right: 20px;
 }

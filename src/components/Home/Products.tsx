@@ -30,7 +30,7 @@ export default function Products() {
         }
     }
     const handleAddProduct = () => {
-        navigate('/addProduct')
+        navigate('/addProduct', { state: { mode: 'add' } })
         // navigate('/addProduct', { state: { categories: categories } })
     }
 
@@ -66,12 +66,12 @@ export default function Products() {
                 <section className="productList">
                     <div className="product-card-cover">
                         {
-                            products.map((element, index) => {
+                            products.map((product, index) => {
                                 return (
                                     <ProductComponent
                                         key={index}
                                         index={index}
-                                        element={element}
+                                        product={product}
                                     />
                                 )
                             })

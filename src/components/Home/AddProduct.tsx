@@ -1,103 +1,103 @@
 import { Button, Container, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
-import { addProduct } from "../../service/product";
+import { addProduct, getProductById, updateProduct } from "../../service/product";
+import { useLocation } from "react-router-dom";
 
 export default function AddProduct() {
+    const location = useLocation()
     const [product, setProduct] = useState<Product>()
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
     const [brand, setBrand] = useState<string>('')
     const [category, setCategory] = useState<string>('')
-    const [price, setPrice] = useState<string>()
-    const [rating, setRating] = useState<string>()
-    const [discount, setDiscount] = useState<string>()
-    const [stock, setStock] = useState<string>()
+    const [price, setPrice] = useState<number>(0)
+    const [rating, setRating] = useState<number>(0)
+    const [discount, setDiscount] = useState<number>(0)
+    const [stock, setStock] = useState<number>(0)
     const [thumbnail, setThumbnail] = useState<string>()
     const [isProductAdded, setIsProductAdded] = useState<boolean>(false)
-    const [isTitleEmpty, setIsTitleEmpty] = useState<boolean>(false)
+    const [isTitleError, setIsTitleError] = useState<boolean>(false)
     const [titleErrorText, setTitleErrorText] = useState<string>()
-    const [isBrandSelected, setIsBrandSelected] = useState<boolean>(false)
+    const [isBrandError, setIsBrandError] = useState<boolean>(false)
     const [brandErrorText, setBrandErrorText] = useState<string>()
-    const [isCategorySelected, setIsCategorySelected] = useState<boolean>(false)
+    const [isCategoryError, setIsCategoryError] = useState<boolean>(false)
     const [categoryErrorText, setCategoryErrorText] = useState<string>()
-    const [isPriceEmpty, setIspriceEmpty] = useState<boolean>(false)
+    const [isPriceError, setIspriceError] = useState<boolean>(false)
     const [priceErrorText, setPriceErrorText] = useState<string>()
-    const [isDescriptionEmpty, setIsDescriptionEmpty] = useState<boolean>(false)
+    const [isDescriptionError, setIsDescriptionError] = useState<boolean>(false)
     const [descriptionErrorText, setDescriptionErrorText] = useState<string>()
-    const [isStockEmpty, setIsStockEmpty] = useState<boolean>(false)
+    const [isStockError, setIsStockError] = useState<boolean>(false)
     const [stockErrorText, setStockErrorText] = useState<string>()
+
+    useEffect(() => {
+        console.log("Mode :::" + location.state.mode)
+        if (location.state.mode == 'edit') {
+            getProductDetailsById(location.state.id)
+        }
+    }, [])
 
     const handleTitle = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setTitle(event.target.value)
     }
     const handlePrice = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setPrice(event.target.value)
+        setPrice(Number(event.target.value))
     }
     const handleRating = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setRating(event.target.value)
+        setRating(Number(event.target.value))
     }
     const handleDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setDescription(event.target.value)
     }
     const handleBrand = (event: SelectChangeEvent<string>) => {
+        console.log("brand:::" + event.target.value)
         setBrand(event.target.value)
-        setIsBrandSelected(true)
     }
     const handleCategory = (event: SelectChangeEvent<string>) => {
         setCategory(event.target.value)
     }
     const handleDiscount = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setDiscount(event.target.value)
+        setDiscount(Number(event.target.value))
     }
     const handleStock = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setStock(event.target.value)
+        setStock(Number(event.target.value))
     }
     function validateForm(product: Product): boolean {
-        let validRegex = /^[0-9]{10}$/;
-        if (!validRegex.test(String(product.price))) {
-            setIspriceEmpty(true)
-            setPriceErrorText('Please enter price')
-        }
-
-        if (!validRegex.test(String(product.stock))) {
-            setIsStockEmpty(true)
-            setStockErrorText('Please enter Stock')
+        if (price) {
+            setPriceErrorText('')
+            setIspriceError(false)
         } else {
-            setStockErrorText('')
+            setPriceErrorText('Please enter price')
+            setIspriceError(true)
         }
-
-        if (!isBrandSelected) {
+        if (stock) {
+            setStockErrorText('')
+            setIsStockError(false)
+        } else {
+            setStockErrorText('Please enter Stock')
+            setIsStockError(true)
+        }
+        if (!brand) {
             setBrandErrorText('Please select a Brand')
-            setIsBrandSelected(true)
+            setIsBrandError(true)
         } else {
             setBrandErrorText('')
-            setIsBrandSelected(false)
+            setIsBrandError(false)
         }
-
-        if (!isCategorySelected) {
+        if (!category) {
             setCategoryErrorText('Please select a Category')
-            setIsCategorySelected(true)
+            setIsCategoryError(true)
         } else {
             setCategoryErrorText('')
-            setIsCategorySelected(false)
+            setIsCategoryError(false)
         }
-
-        if (product.description.length == 0) {
-            setIsDescriptionEmpty(true)
-            setDescriptionErrorText('Please enter Product Description')
-        } else {
-            setDescriptionErrorText('')
-            setIsDescriptionEmpty(false)
-        }
-
         if (product.title.length == 0) {
-            setIsTitleEmpty(true)
+            setIsTitleError(true)
             setTitleErrorText('Please enter Product Name')
             return false
         } else {
             setTitleErrorText('')
-            setIsTitleEmpty(false)
+            setIsTitleError(false)
             return true
         }
     }
@@ -113,73 +113,115 @@ export default function AddProduct() {
         product.stock = Number(stock)
 
         if (validateForm(product)) {
-            let response = await addProduct(product)
+            let response: Product;
+            if (location.state.mode == 'edit') {
+                product.id = location.state.id
+                response = await updateProduct(product.id, product)
+            } else {
+                response = await addProduct(product)
+            }
             setProduct(response)
             if (response) {
                 setIsProductAdded(!isProductAdded)
             }
         }
     }
+    const getProductDetailsById = async (id: number) => {
+        try {
+            let response = await getProductById(id)
+            setProduct(response)
+            setTitle(response.title)
+            setBrand(response.brand)
+            setPrice(response.price)
+            setDiscount(response.discountPercentage)
+
+            setRating(response.rating)
+            setCategory(response.category)
+            setDescription(response.description)
+            setStock(response.stock)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <Container style={{ backgroundColor: 'lightcoral' }} >
             <div className="add-product">
                 <div >
-                    <h1>Add a Product</h1>
-                    {
-                        isProductAdded ?
-                            (<>
-                                <p>{"Product Added Successfully by id: " + product?.id}</p>
-                            </>)
-                            :
-                            null
+                    {location.state.mode == "add" ?
+                        <>
+                            <h1>Add a Product</h1>
+                            {
+                                isProductAdded ?
+                                    (<>
+                                        <p>{"Product Added Successfully by id: " + product?.id}</p></>) : null
+                            }
+                        </>
+                        :
+                        <>
+                            <h1>Update a Product</h1>
+                            {
+                                isProductAdded ?
+                                    (<>
+                                        <p>{"Product updated Successfully by id: " + product?.id}</p></>) : null
+                            }
+                        </>
                     }
                 </div>
                 <div className="add-product" >
                     <form className="reactForm" >
-                        <InputLabel htmlFor="name">Product Name:</InputLabel>
+                        {/* <InputLabel htmlFor="name">Product Name:</InputLabel> */}
                         <TextField type="text"
                             id="title"
+                            label="Product Name"
                             variant="outlined"
-                            placeholder="Enter Title"
+                            placeholder="Enter product Name"
                             value={title}
-                            error={isTitleEmpty}
+                            error={isTitleError}
                             helperText={titleErrorText}
-                            onChange={(event) => { handleTitle(event) }} />
+                            onChange={(event) => { handleTitle(event) }} /><br />
 
-                        <InputLabel id="brand">Brand :</InputLabel>
+                        <InputLabel htmlFor="brand">Brand :</InputLabel>
                         <Select
-                            labelId="brand"
                             id="brand"
+                            labelId="Brand"
                             value={brand}
                             placeholder="select Brand"
-                            error={isBrandSelected}
+                            error={isBrandError}
                             onChange={(event) => { handleBrand(event) }} >
                             <MenuItem value="Apple">Apple</MenuItem>
                             <MenuItem value="Samsung">Samsung</MenuItem>
                             <MenuItem value="Vivo">Vivo</MenuItem>
                             <MenuItem value="OnePlus">OnePlus</MenuItem>
-                            <MenuItem value="Oppo">Oppo</MenuItem>
+                            <MenuItem value="OPPO">OPPO</MenuItem>
                             <MenuItem value="Huawei">Huawei</MenuItem>
                             <MenuItem value="L'Oreal Paris">L'Oreal Paris</MenuItem>
                             <MenuItem value="Hemani Tea">Hemani Tea</MenuItem>
                             <MenuItem value="Dermive">Dermive</MenuItem>
+                            <MenuItem value="Infinix">Infinix</MenuItem>
+                            {/* Microsoft Surface
+                            HP Pavilion
+                            Impression of Acqua Di Gio
+                            Royal_Mirage
+                            Fog Scent Xpressio */}
                         </Select>
                         <FormHelperText>{brandErrorText}</FormHelperText><br />
 
-                        <InputLabel htmlFor="price">Price:</InputLabel>
+                        {/* <InputLabel htmlFor="price">Price:</InputLabel> */}
                         <TextField type="number"
                             id="price"
+                            label="Price"
                             variant="outlined"
                             placeholder="Enter Price"
                             value={price}
-                            error={isPriceEmpty}
+                            error={isPriceError}
                             helperText={priceErrorText}
                             onChange={(event) => { handlePrice(event) }}
                         /><br />
 
-                        <InputLabel htmlFor="rating">Rating:</InputLabel>
+                        {/* <InputLabel htmlFor="rating">Rating:</InputLabel> */}
                         <TextField type="number"
                             id="rating"
+                            label="Rating"
                             variant="outlined"
                             placeholder="Enter rating"
                             value={rating}
@@ -195,15 +237,15 @@ export default function AddProduct() {
                             onChange={(event) => { handleDescription(event) }} />
                         <br />
 
-                        <InputLabel id="category">Category :</InputLabel>
+                        <InputLabel htmlFor="category">Category :</InputLabel>
                         <Select id="category"
                             value={category}
-                            error={isCategorySelected}
+                            error={isCategoryError}
                             placeholder="select Category"
                             onChange={(event) => { handleCategory(event) }} >
                             <MenuItem value="skincare">skincare</MenuItem>
-                            <MenuItem value="Smartphones">Smartphones</MenuItem>
-                            <MenuItem value="Laptops">Laptops</MenuItem>
+                            <MenuItem value="smartphones">Smartphones</MenuItem>
+                            <MenuItem value="laptops">Laptops</MenuItem>
                             <MenuItem value="Home-decors">Home-decors</MenuItem>
                         </Select>
                         <FormHelperText>{categoryErrorText}</FormHelperText><br />
@@ -222,11 +264,20 @@ export default function AddProduct() {
                             variant="outlined"
                             placeholder="Enter stock"
                             value={stock}
-                            error={isStockEmpty}
+                            error={isStockError}
                             helperText={stockErrorText}
                             onChange={(event) => { handleStock(event) }}
                         /><br />
-                        <Button onClick={() => handleFormData()} variant="contained">Submit</Button>
+                        {
+                            location.state.mode == 'add' ? (<>
+                                <Button onClick={() => handleFormData()} variant="contained">Submit</Button>
+                            </>)
+                                :
+                                (<>
+                                    <Button onClick={() => handleFormData()} variant="contained">Update</Button>
+                                </>)
+                        }
+
                     </form>
                 </div>
             </div>
