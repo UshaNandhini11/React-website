@@ -15,8 +15,13 @@ export default function AppDrawer() {
     };
     const handleLogout = () => {
         localStorage.removeItem('token')
+        localStorage.clear()
         navigate('/login')
     }
+    const handleSearch = () => {
+        console.log("search component loads here!!!")
+    }
+
     return (<>
         <Box className="header">
             <Box className="hamburger">
@@ -37,6 +42,9 @@ export default function AppDrawer() {
                     variant="outlined"
                     placeholder="Search..."
                     size="small"
+                    onChange={() => {
+                        handleSearch()
+                    }}
                 />
             </div>
             <Box className="headerLeft">

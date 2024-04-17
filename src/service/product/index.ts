@@ -4,7 +4,7 @@ import { Product } from "../../entity/products"
 export function getProductList(): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.get("https://dummyjson.com/products?limit=0")
+            let response = await axios.get("https://dummyjson.com/products?limit=0&delay=3000")
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
             reject(error)
@@ -41,7 +41,26 @@ export function updateProduct(id: number, payload: Product): Promise<Product> {
         }
     })
 }
-
+export function getProductsCategories(): Promise<string[]> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axios.get("https://dummyjson.com/products/categories")
+            resolve(response.data)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+export function getproductsBycategory(categoryName: string): Promise<Product[]> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axios.get(`https://dummyjson.com/products/category/${categoryName}`)
+            resolve(productsInfosToProductsEntities(response.data.products))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 function productsInfosToProductsEntities(productsInfos: any): Product[] {
     let products: Product[] = productsInfos.map((productInfo: Product) => productInfoToProductEntity(productInfo))
     return products

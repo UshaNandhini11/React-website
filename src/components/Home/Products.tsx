@@ -1,25 +1,30 @@
 import './product.css'
 import { useEffect, useState } from "react";
 import { Product } from "../../entity/products";
-import { getProductList } from "../../service/product";
-import ProductCategory from './ProductCategory';
+import { getProductList, getProductsCategories } from "../../service/product";
+import ProductCategory from '../ProductCategory';
 import ProductComponent from '../Product';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([]);
-    const [categories, setCategories] = useState<string[]>()
-    const [brands, setBrands] = useState<string[]>()
+    const [categories, setCategories] = useState<string[] | undefined>()
+    const [brands, setBrands] = useState<string[] | undefined>()
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         getProducts();
     }, []);
 
     useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
         if (products?.length > 0) {
-            getProductsCategories();
+            getCategories();
             getBrands();
         }
     }, [products])
@@ -32,11 +37,10 @@ export default function Products() {
             console.log(error)
         }
     }
-    const getProductsCategories = async () => {
+    const getCategories = async () => {
         try {
-            let category = products.map((element) => element.category).filter((value, index, currentValue) =>
-                currentValue.indexOf(value) === index)
-            setCategories(category)
+            let response = await getProductsCategories();
+            setCategories(response)
         } catch (error) {
             console.log("Error in getCategories::" + error)
         }
@@ -62,7 +66,8 @@ export default function Products() {
                             return (
                                 <ProductCategory
                                     key={index}
-                                    element={element} />
+                                    element={element}
+                                    brands={brands} />
                             )
                         })
                     }
@@ -73,6 +78,14 @@ export default function Products() {
                     <h1>Products</h1>
                     <Button variant='contained' style={{ marginTop: 30 }} onClick={() => handleAddProduct()}>Add Product</Button>
                 </header>
+                <section>
+                    <div className='loading-circular-progress'>
+                        {
+                            isLoading ? (<>
+                                <CircularProgress /></>) : (<></>)
+                        }
+                    </div>
+                </section>
                 <section className="productList">
                     <div className="product-card-cover">
                         {

@@ -100,6 +100,7 @@ button {
     margin: 5px;
     flex-wrap: wrap;
     padding: 0px 5px;
+    cursor: pointer;
 }
 
 .category-card p {
@@ -177,3 +178,12 @@ textarea {
     top: 15px;
     right: 20px;
 }
+
+/* 
+.loading-circular-progress {
+    display: flex;
+    width: 100%;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+} */

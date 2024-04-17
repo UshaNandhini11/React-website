@@ -12,6 +12,7 @@ import { ReactElement } from 'react'
 import PublicRouter from './router/PublicRouter'
 import ProductDetails from './components/ProductDetails'
 import AddProduct from './components/Home/AddProduct'
+import ProductsBycategory from './components/ProductsBycategory'
 
 export interface RouterProps {
   name: string,
@@ -35,6 +36,11 @@ function App() {
       name: "AddProduct",
       path: "/addProduct",
       element: <AddProduct />
+    },
+    {
+      name: "ProductsBycategory",
+      path: "/productsBycategory",
+      element: <ProductsBycategory />
     },
     {
       name: "Contacts",

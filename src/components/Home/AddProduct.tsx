@@ -1,7 +1,7 @@
 import { Button, Container, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
-import { addProduct, getProductById, updateProduct } from "../../service/product";
+import { addProduct, getProductById, getProductsCategories, updateProduct } from "../../service/product";
 import { useLocation } from "react-router-dom";
 
 export default function AddProduct() {
@@ -26,11 +26,13 @@ export default function AddProduct() {
     const [priceErrorText, setPriceErrorText] = useState<string>()
     const [isStockError, setIsStockError] = useState<boolean>(false)
     const [stockErrorText, setStockErrorText] = useState<string>()
+    const [categories, setCategories] = useState<string[] | undefined>()
 
     useEffect(() => {
         if (location.state.mode == 'edit') {
             getProductDetailsById(location.state.id)
         }
+        getCategories();
     }, [])
 
     const handleTitle = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -136,6 +138,14 @@ export default function AddProduct() {
             console.log(error)
         }
     }
+    const getCategories = async () => {
+        try {
+            let response = await getProductsCategories()
+            setCategories(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <Container style={{ backgroundColor: 'lightcoral' }} >
             <div className="add-product">
@@ -229,7 +239,8 @@ export default function AddProduct() {
                             placeholder="select Category"
                             onChange={(event) => { handleCategory(event) }} >
                             {
-                                location.state.categories.map((category: string, index: number) => {
+                                //  location.state.categories.map((category: string, index: number) => {
+                                categories?.map((category: string, index: number) => {
                                     return (
                                         <MenuItem key={index} value={category}>{category}</MenuItem>
                                     )
