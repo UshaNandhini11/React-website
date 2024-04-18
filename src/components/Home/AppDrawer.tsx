@@ -3,8 +3,9 @@ import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Products from "./Products";
 
 export default function AppDrawer() {
     const [open, setOpen] = useState(false);
@@ -18,9 +19,6 @@ export default function AppDrawer() {
         localStorage.clear()
         navigate('/login')
     }
-    const handleSearch = () => {
-        console.log("search component loads here!!!")
-    }
 
     return (<>
         <Box className="header">
@@ -32,21 +30,6 @@ export default function AppDrawer() {
             <Box className="headerLeft">
                 <h1>Welcome to our Page</h1>
             </Box>
-            <div className="headerLeft">
-                {/* <IconButton type="submit" aria-label="search">
-                    <i className="fas fa-search"></i>
-                </IconButton> */}
-                <TextField
-                    id="search-bar"
-                    className="text"
-                    variant="outlined"
-                    placeholder="Search..."
-                    size="small"
-                    onChange={() => {
-                        handleSearch()
-                    }}
-                />
-            </div>
             <Box className="headerLeft">
                 <Button variant='contained' onClick={() => {
                     handleLogout()

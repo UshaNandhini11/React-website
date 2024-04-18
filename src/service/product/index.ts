@@ -61,6 +61,16 @@ export function getproductsBycategory(categoryName: string): Promise<Product[]> 
         }
     })
 }
+export function searchProducts(searchText: string): Promise<Product[]> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axios.get(`https://dummyjson.com/products/search?q=${searchText}`)
+            resolve(productsInfosToProductsEntities(response.data.products))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 function productsInfosToProductsEntities(productsInfos: any): Product[] {
     let products: Product[] = productsInfos.map((productInfo: Product) => productInfoToProductEntity(productInfo))
     return products

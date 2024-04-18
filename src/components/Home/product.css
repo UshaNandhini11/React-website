@@ -16,7 +16,7 @@ header h1 {
 .product-header {
     display: flex;
     height: 100px;
-    width: 100%;
+    width: 80%;
     /* flex-direction: row; */
     justify-content: space-around;
     /* background-color: hotpink; */
@@ -187,3 +187,12 @@ textarea {
     justify-content: center;
     align-items: center;
 } */
+
+.search-card {
+    height: 80px;
+    width: 50%;
+    background-color: transparent;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}

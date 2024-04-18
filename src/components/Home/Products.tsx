@@ -1,12 +1,13 @@
 import './product.css'
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
-import { getProductList, getProductsCategories } from "../../service/product";
+import { getProductList, getProductsCategories, searchProducts } from "../../service/product";
 import ProductCategory from '../ProductCategory';
 import ProductComponent from '../Product';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
 
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -14,6 +15,8 @@ export default function Products() {
     const [brands, setBrands] = useState<string[] | undefined>()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(true);
+    const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
+    const [searchText, setSearchText] = useState<string>('')
 
     useEffect(() => {
         getProducts();
@@ -28,6 +31,14 @@ export default function Products() {
             getBrands();
         }
     }, [products])
+
+    useEffect(() => {
+        if (searchText) {
+            searchProduct();
+        } else {
+            setSearchedProducts([])
+        }
+    }, [searchText]);
 
     const getProducts = async () => {
         try {
@@ -57,6 +68,18 @@ export default function Products() {
     const handleAddProduct = () => {
         navigate('/addProduct', { state: { mode: 'add', categories: categories, brands: brands } })
     }
+    const searchProduct = async () => {
+        try {
+            let response = await searchProducts(searchText)
+            setSearchedProducts(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const handleSearch = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setSearchText(event?.target.value)
+        console.log("search Text!!!" + searchText)
+    }
     return (<>
         <div>
             <div className="categories">
@@ -76,6 +99,19 @@ export default function Products() {
             <div className="product">
                 <header className='product-header'>
                     <h1>Products</h1>
+                    <div className="search-card">
+                        <TextField
+                            id="search-bar"
+                            className="text"
+                            variant="outlined"
+                            placeholder="Search..."
+                            size="small"
+                            value={searchText}
+                            onChange={(event) => {
+                                handleSearch(event)
+                            }}
+                        />
+                    </div>
                     <Button variant='contained' style={{ marginTop: 30 }} onClick={() => handleAddProduct()}>Add Product</Button>
                 </header>
                 <section>
@@ -89,17 +125,41 @@ export default function Products() {
                 <section className="productList">
                     <div className="product-card-cover">
                         {
-                            products.map((product, index) => {
-                                return (
-                                    <ProductComponent
-                                        key={index}
-                                        index={index}
-                                        product={product}
-                                        categories={categories}
-                                        brands={brands}
-                                    />
+                            searchedProducts.length > 0 ?
+                                (<>
+                                    {
+                                        searchedProducts.map((product, index) => {
+                                            return (
+                                                <ProductComponent
+                                                    key={index}
+                                                    index={index}
+                                                    product={product}
+                                                    categories={categories}
+                                                    brands={brands}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </>
+                                ) : (
+                                    <>
+                                        {
+                                            products.map((product, index) => {
+                                                return (
+                                                    <ProductComponent
+                                                        key={index}
+                                                        index={index}
+                                                        product={product}
+                                                        categories={categories}
+                                                        brands={brands}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </>
                                 )
-                            })
+
+
                         }
                     </div>
                 </section>
