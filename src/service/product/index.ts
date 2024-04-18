@@ -4,7 +4,7 @@ import { Product } from "../../entity/products"
 export function getProductList(): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.get("https://dummyjson.com/products?limit=0&delay=3000")
+            let response = await axios.get("https://dummyjson.com/products?limit=0&delay=1000")
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
             reject(error)
@@ -75,7 +75,6 @@ function productsInfosToProductsEntities(productsInfos: any): Product[] {
     let products: Product[] = productsInfos.map((productInfo: Product) => productInfoToProductEntity(productInfo))
     return products
 }
-
 function productInfoToProductEntity(productInfo: any): Product {
     let product = new Product()
     let id = productInfo.id
@@ -122,6 +121,5 @@ function productInfoToProductEntity(productInfo: any): Product {
     if (discountPercentage) {
         product.discountPercentage = Number(discountPercentage)
     }
-
     return product
 }

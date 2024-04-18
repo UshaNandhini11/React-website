@@ -53,7 +53,6 @@ function App() {
       element: <Portfolio />
     }
   ]
-
   return (
     <>
       <CssBaseline />

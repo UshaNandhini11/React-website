@@ -1,11 +1,11 @@
-import './product.css'
+import '../Home/css/product.css'
 import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
 import { getProductList, getProductsCategories, searchProducts } from "../../service/product";
 import ProductCategory from '../ProductCategory';
 import ProductComponent from '../Product';
 import Button from '@mui/material/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 
@@ -25,7 +25,7 @@ export default function Products() {
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 3000);
+        }, 1000);
         if (products?.length > 0) {
             getCategories();
             getBrands();

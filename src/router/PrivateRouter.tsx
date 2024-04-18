@@ -12,5 +12,4 @@ export default function PrivateRouter() {
     ) : (
         <Navigate to="/login" />
     )
-
 } 

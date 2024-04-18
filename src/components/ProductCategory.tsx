@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import '../components/Home/product.css'
+import '../components/Home/css/product.css'
+
 interface ProductCategoryProps {
     element: string
     brands: string[] | undefined

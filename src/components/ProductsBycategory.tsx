@@ -9,7 +9,6 @@ export default function ProductsBycategory() {
     const [productsBycategory, setProductsByCategory] = useState<Product[]>()
 
     useEffect(() => {
-        console.log("in productsbyCategory page:::" + location.state.category)
         loadproductsBycategory(location.state.category)
     }, [])
 

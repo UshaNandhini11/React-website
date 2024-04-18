@@ -1,11 +1,8 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Products from "./Products";
 
 export default function AppDrawer() {
     const [open, setOpen] = useState(false);
