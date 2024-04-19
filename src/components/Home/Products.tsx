@@ -33,11 +33,15 @@ export default function Products() {
     }, [products])
 
     useEffect(() => {
-        if (searchText) {
-            searchProduct();
-        } else {
-            setSearchedProducts([])
-        }
+        const delaySearchInput = setTimeout(() => {
+            if (searchText) {
+                searchProduct();
+            } else {
+                setSearchedProducts([])
+            }
+        }, 5000)
+
+        return () => clearTimeout(delaySearchInput);
     }, [searchText]);
 
     const getProducts = async () => {
