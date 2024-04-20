@@ -1,4 +1,4 @@
-import { Button, Container, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import { Alert, Button, Container, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
 import { addProduct, getProductById, getProductsCategories, updateProduct } from "../../service/product";
@@ -156,7 +156,10 @@ export default function AddProduct() {
                             {
                                 isProductAdded ?
                                     (<>
-                                        <p>{"Product Added Successfully by id: " + product?.id}</p></>) : null
+                                        <Alert variant="filled" severity="success">
+                                            <p>{"Product Added Successfully by id: " + product?.id}</p>
+                                        </Alert>
+                                    </>) : null
                             }
                         </>
                         :
@@ -165,7 +168,9 @@ export default function AddProduct() {
                             {
                                 isProductAdded ?
                                     (<>
-                                        <p>{"Product updated Successfully by id: " + product?.id}</p></>) : null
+                                        <Alert variant="filled" severity="success">
+                                            <p>{"Product Updated Successfully by id: " + product?.id}</p>
+                                        </Alert></>) : null
                             }
                         </>
                     }

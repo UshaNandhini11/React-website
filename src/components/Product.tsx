@@ -6,6 +6,7 @@ interface ProductProps {
     product: Product
     categories: string[] | undefined
     brands: String[] | undefined
+    handleDelete: (index: number) => void
 }
 export default function ProductComponent(props: ProductProps) {
     const navigate = useNavigate()
@@ -23,8 +24,10 @@ export default function ProductComponent(props: ProductProps) {
             }
         })
     }
+
     return (<>
         <div className="productContent">
+            <div className="delete-icon" onClick={() => { props.handleDelete(props.product.id) }}><i className="fa-solid fa-trash"></i></div>
             <div className="edit-icon" onClick={() => { handleEdit() }}><i className="fas fa-edit"></i></div>
             <div className="product-card" key={props.product.id}
                 onClick={() => {

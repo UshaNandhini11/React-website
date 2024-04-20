@@ -1,14 +1,16 @@
-import axios from "axios"
+
 import { User } from '../../entity/user';
+import axiosInstance from "../../axios";
 
 export function login(username: string, password: string): Promise<User> {
     return new Promise(async (resolve, reject) => {
         try {
             const requestData = {
                 username: username,
-                password: password
+                password: password,
+                expiresInMins: 1
             }
-            let response = await axios.post('https://dummyjson.com/auth/login', requestData)
+            let response = await axiosInstance.post('/auth/login', requestData)
             resolve(userInfoToUserEntity(response.data))
         } catch (error) {
             reject(error)

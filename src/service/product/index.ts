@@ -1,10 +1,10 @@
-import axios from "axios"
 import { Product } from "../../entity/products"
+import axiosInstance from "../../axios"
 
 export function getProductList(): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.get("https://dummyjson.com/products?limit=0&delay=1000")
+            let response = await axiosInstance.get("/products?limit=0&delay=1000")
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
             reject(error)
@@ -14,7 +14,7 @@ export function getProductList(): Promise<Product[]> {
 export function getProductById(id: number): Promise<Product> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.get(`https://dummyjson.com/products/${id}`)
+            let response = await axiosInstance.get(`/products/${id}`)
             resolve(productInfoToProductEntity(response.data))
         } catch (error) {
             reject(error)
@@ -24,7 +24,7 @@ export function getProductById(id: number): Promise<Product> {
 export function addProduct(payload: Product): Promise<Product> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.post('https://dummyjson.com/products/add', payload)
+            let response = await axiosInstance.post('/products/add', payload)
             resolve(productInfoToProductEntity(response.data))
         } catch (error) {
             reject(error)
@@ -34,7 +34,7 @@ export function addProduct(payload: Product): Promise<Product> {
 export function updateProduct(id: number, payload: Product): Promise<Product> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.put(`https://dummyjson.com/products/${id}`, payload)
+            let response = await axiosInstance.put(`/products/${id}`, payload)
             resolve(productInfoToProductEntity(response.data))
         } catch (error) {
             reject(error)
@@ -44,7 +44,7 @@ export function updateProduct(id: number, payload: Product): Promise<Product> {
 export function getProductsCategories(): Promise<string[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.get("https://dummyjson.com/products/categories")
+            let response = await axiosInstance.get("/products/categories")
             resolve(response.data)
         } catch (error) {
             reject(error)
@@ -54,7 +54,7 @@ export function getProductsCategories(): Promise<string[]> {
 export function getproductsBycategory(categoryName: string): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.get(`https://dummyjson.com/products/category/${categoryName}`)
+            let response = await axiosInstance.get(`/products/category/${categoryName}`)
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
             reject(error)
@@ -64,8 +64,18 @@ export function getproductsBycategory(categoryName: string): Promise<Product[]> 
 export function searchProducts(searchText: string): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axios.get(`https://dummyjson.com/products/search?q=${searchText}`)
+            let response = await axiosInstance.get(`/products/search?q=${searchText}`)
             resolve(productsInfosToProductsEntities(response.data.products))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+export function deleteProduct(id: number): Promise<Product> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axiosInstance.delete(`/products/${id}`)
+            resolve(productInfoToProductEntity(response.data))
         } catch (error) {
             reject(error)
         }

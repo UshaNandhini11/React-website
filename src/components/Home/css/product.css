@@ -167,8 +167,21 @@ textarea {
 }
 
 .edit-icon {
+    /* height: 30px;
+    width: 615px; */
+    display: flex;
+    font-size: 20px;
+    justify-content: end;
+    margin-bottom: 10px;
+    background-color: transparent;
+    position: absolute;
+    top: 15px;
+    right: 90px;
+}
+
+.delete-icon {
     height: 30px;
-    width: 650px;
+    width: 615px;
     display: flex;
     font-size: 20px;
     justify-content: end;
@@ -178,15 +191,6 @@ textarea {
     top: 15px;
     right: 20px;
 }
-
-/* 
-.loading-circular-progress {
-    display: flex;
-    width: 100%;
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-} */
 
 .search-card {
     height: 80px;

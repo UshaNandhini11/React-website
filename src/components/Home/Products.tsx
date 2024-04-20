@@ -1,13 +1,14 @@
 import '../Home/css/product.css'
 import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
-import { getProductList, getProductsCategories, searchProducts } from "../../service/product";
+import { deleteProduct, getProductList, getProductsCategories, searchProducts } from "../../service/product";
 import ProductCategory from '../ProductCategory';
 import ProductComponent from '../Product';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -17,6 +18,7 @@ export default function Products() {
     const [isLoading, setIsLoading] = useState(true);
     const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
     const [searchText, setSearchText] = useState<string>('')
+    const [deleteMessage, setDeleteMessage] = useState<string>('')
 
     useEffect(() => {
         getProducts();
@@ -84,6 +86,20 @@ export default function Products() {
         setSearchText(event?.target.value)
         console.log("search Text!!!" + searchText)
     }
+    const handleDelete = async (id: number) => {
+        try {
+            let response = await deleteProduct(id)
+            if (response) {
+                setDeleteMessage('Product Deleted Successfully - Id : ' + id)
+            }
+            setTimeout(() => {
+                setDeleteMessage("");
+            }, 5000);
+            getProducts();
+        } catch (error) {
+            console.log("Error in Delete Product :: " + error)
+        }
+    }
     return (<>
         <div>
             <div className="categories">
@@ -126,6 +142,16 @@ export default function Products() {
                         }
                     </div>
                 </section>
+                <section>
+                    {
+                        deleteMessage ? (<>
+                            <Alert variant="filled" severity="success">
+                                {deleteMessage}
+                            </Alert>
+                        </>
+                        ) : (<></>)
+                    }
+                </section>
                 <section className="productList">
                     <div className="product-card-cover">
                         {
@@ -140,6 +166,9 @@ export default function Products() {
                                                     product={product}
                                                     categories={categories}
                                                     brands={brands}
+                                                    handleDelete={(index) => {
+                                                        handleDelete(index)
+                                                    }}
                                                 />
                                             )
                                         })
@@ -156,14 +185,15 @@ export default function Products() {
                                                         product={product}
                                                         categories={categories}
                                                         brands={brands}
+                                                        handleDelete={(index) => {
+                                                            handleDelete(index)
+                                                        }}
                                                     />
                                                 )
                                             })
                                         }
                                     </>
                                 )
-
-
                         }
                     </div>
                 </section>
