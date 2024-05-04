@@ -13,6 +13,7 @@ import PublicRouter from './router/PublicRouter'
 import ProductDetails from './components/ProductDetails'
 import AddProduct from './components/Home/AddProduct'
 import ProductsBycategory from './components/ProductsBycategory'
+import UserProfile from './components/Profile'
 
 export interface RouterProps {
   name: string,
@@ -51,6 +52,11 @@ function App() {
       name: "Portfolio",
       path: "/portfolio",
       element: <Portfolio />
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      element: <UserProfile />
     }
   ]
   return (
