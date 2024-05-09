@@ -10,4 +10,7 @@ export class Product {
     thumbnail: string
     images: string[]
     stock: number
+    quantity?: number
+    total?: number
+    discountedPrice?: number
 }

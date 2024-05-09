@@ -42,6 +42,10 @@ export default function AppDrawer() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    const handleCart = () => {
+        navigate('/cart')
+    }
+
     return (<>
         <Box className="header">
             <Box className="hamburger">
@@ -54,7 +58,9 @@ export default function AppDrawer() {
             </Box>
             <Box>
                 <div className="headerRight">
-                    <a href="#"><i className="fa-solid fa-cart-shopping"></i></a>
+                    <a href=""><i className="fa-solid fa-cart-shopping" onClick={() => {
+                        handleCart()
+                    }}></i></a>
                 </div>
             </Box>
             <Box className="headerRight">

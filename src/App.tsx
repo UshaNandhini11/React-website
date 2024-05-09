@@ -14,6 +14,7 @@ import ProductDetails from './components/ProductDetails'
 import AddProduct from './components/Home/AddProduct'
 import ProductsBycategory from './components/ProductsBycategory'
 import UserProfile from './components/Profile'
+import UserCart from './components/Cart/Cart'
 
 export interface RouterProps {
   name: string,
@@ -57,6 +58,11 @@ function App() {
       name: "Profile",
       path: "/profile",
       element: <UserProfile />
+    },
+    {
+      name: "UserCart",
+      path: "/cart",
+      element: <UserCart />
     }
   ]
   return (
