@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { Product } from "../entity/products"
+import { Product } from "../../entity/products"
 
 interface ProductProps {
     index: number

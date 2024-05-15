@@ -1,7 +1,7 @@
 import axiosInstance from "../../axios"
-import { Carts } from "../../entity/carts"
+import { CartsResponse } from "../../entity/cartsResponse"
 
-export function getCartByUserId(id: number): Promise<Carts[]> {
+export function getCartByUserId(id: number): Promise<CartsResponse> {
     return new Promise(async (resolve, reject) => {
         try {
             let response = await axiosInstance.get(`/carts/user/${id}`)

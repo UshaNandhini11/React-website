@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
-import { Product } from "../entity/products";
-import { getProductById } from "../service/product";
+import { Product } from "../../entity/products";
+import { getProductById } from "../../service/product";
 import { useLocation } from "react-router-dom";
 
 export default function ProductDetails() {

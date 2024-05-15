@@ -2,8 +2,8 @@ import '../Home/css/product.css'
 import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
 import { deleteProduct, getProductList, getProductsCategories, searchProducts } from "../../service/product";
-import ProductCategory from '../ProductCategory';
-import ProductComponent from '../Product';
+import ProductCategory from '../Product/ProductCategory';
+import ProductComponent from '../Product/Product';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';

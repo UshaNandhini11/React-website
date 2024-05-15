@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
-import { Profile } from "../entity/profile";
-import { authenticateUser } from "../service/auth";
+import { Profile } from "../../entity/profile";
+import { authenticateUser } from "../../service/auth";
 
 export default function UserProfile() {
     const [profileDetails, setProfileDetails] = useState<Profile>();
@@ -66,14 +66,6 @@ export default function UserProfile() {
                             <p>{profileDetails?.address.postalCode}</p></td>
                     </tr>
                 </table>
-                {/* 
-                
-               
-                
-                 <p>{profileDetails?.address.address}</p>
-              
-                <p>{profileDetails?.address.state}</p>
-                */}
             </div>
         </Container>
 

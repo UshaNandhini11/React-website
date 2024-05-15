@@ -1,6 +1,6 @@
 import { Product } from "./products"
 
-export class Carts {
+export class Cart {
     id: number
     products: Product[]
 }

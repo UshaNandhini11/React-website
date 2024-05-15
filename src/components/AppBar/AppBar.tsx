@@ -92,9 +92,6 @@ export default function AppDrawer() {
                         <MenuItem onClick={handleCloseUserMenu}>
                             <Link to='/' style={{ fontSize: '20px', textDecoration: 'none' }} > Products</Link>
                         </MenuItem>
-                        <MenuItem onClick={handleCloseUserMenu}>
-                            <Link to='/cart' state={{ id: authUser?.id }}> Cart</Link>
-                        </MenuItem>
                     </Menu>
                 </div>
                 <div style={{ marginLeft: '20', backgroundColor: 'fuchsia' }}>

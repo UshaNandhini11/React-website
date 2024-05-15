@@ -1,57 +1,70 @@
+import './cart.css'
 import { Box, Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Carts } from "../../entity/carts";
 import { getCartByUserId } from "../../service/cart";
-import { useLocation } from "react-router-dom";
 import { authenticateUser } from "../../service/auth";
-import { Profile } from "../../entity/profile";
+import { CartsResponse } from "../../entity/cartsResponse";
 
 export default function UserCart() {
-    const location = useLocation()
-    const [authUser, setAuthUser] = useState<Profile>();
-    const [userCart, setUserCart] = useState<Carts[]>()
+    const [userCart, setUserCart] = useState<CartsResponse | undefined>()
     useEffect(() => {
         authenticatedUser()
     }, [])
 
-    // useEffect(() => {
-    //     console.log("auth id in carts   ::" + location.state.authUser?.id)
-    //     if (location.state.authUser?.id) {
-    //         setTimeout(() => {
-    //             cartByUserId(Number(location.state.authUser?.id));
-    //         }, 2000);
-    //     }
-    // }, [authUser])
-
     const authenticatedUser = async () => {
         let response = await authenticateUser();
-        setAuthUser(response)
-        console.log("auth id in carts   ::" + response.id)
         let cartResponse = await getCartByUserId(Number(response.id));
         setUserCart(cartResponse)
-
     }
-    // const cartByUserId = async (id: number) => {
-    //     await getCartByUserId(id);
-    //     setUserCart(response)
-    // }
+
     return (<>
         <Container>
             <Box>
                 <h1>Carts Page</h1>
                 {
-                    userCart?.map((element) => (
-                        <>
-                            <p>{element.id}</p>
-                            <p>{element.products.map((product) => (
-                                <p>{product.title}</p>
-                            ))}</p>
-                        </>
+                    userCart?.carts.map((cart) => (
+                        <div key={cart.id} className='carts'>
+                            {
+                                cart.products.map((product) => (
+                                    <div key={product.id}>
+                                        <div className="cartProduct">
+                                            <form >
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><label htmlFor="productName">Product Name : </label></td>
+                                                            <td><p>{product.title}</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label htmlFor="quantity">Quantity: </label></td>
+                                                            <td><p>{product.quantity}</p></td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><label htmlFor="price">Product price : </label></td>
+                                                            <td><p>{product.price}</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label htmlFor="discountPercentage">Discounted Percentage : </label></td>
+                                                            <td><p>{product.discountPercentage}</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label htmlFor="discountAmt">Discounted amount : </label></td>
+                                                            <td><p>{product.discountedPrice}</p></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label htmlFor="total">Total Amount: </label></td>
+                                                            <td><p>{product.total}</p></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     ))
-                    // userCart?.products.map((element) => (
-                    //     <p>{element.id}</p>
-                    // )
-                    // )
                 }
             </Box>
         </Container ></>

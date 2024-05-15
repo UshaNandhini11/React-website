@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
-import { getproductsBycategory } from "../service/product"
-import { Product } from "../entity/products"
-import ProductComponent from "./Product"
+import { getproductsBycategory } from "../../service/product"
+import { Product } from "../../entity/products"
+import ProductComponent from "../Product/Product"
 
 export default function ProductsBycategory() {
     const location = useLocation()
@@ -27,7 +27,10 @@ export default function ProductsBycategory() {
                     productsBycategory?.map((productBycategory, index) => {
                         return (
                             <div key={index}>
-                                <ProductComponent index={index} product={productBycategory} categories={undefined} brands={location.state.brands} />
+                                <ProductComponent index={index} product={productBycategory} categories={undefined} brands={location.state.brands}
+                                    handleDelete={function (index: number): void {
+
+                                    }} />
                             </div>
                         )
                     })
