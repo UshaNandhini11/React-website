@@ -21,7 +21,6 @@ export default function AppDrawer() {
         setTimeout(() => {
             authenticatedUser();
         }, 1000);
-
     }, [])
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -43,9 +42,9 @@ export default function AppDrawer() {
         setAnchorElUser(null);
     };
     const handleCart = () => {
-        navigate('/cart')
+        console.log("auth id::" + authUser?.id)
+        navigate('/cart', { state: { id: authUser?.id } })
     }
-
     return (<>
         <Box className="header">
             <Box className="hamburger">
@@ -61,6 +60,7 @@ export default function AppDrawer() {
                     <a href=""><i className="fa-solid fa-cart-shopping" onClick={() => {
                         handleCart()
                     }}></i></a>
+
                 </div>
             </Box>
             <Box className="headerRight">
@@ -92,6 +92,9 @@ export default function AppDrawer() {
                         <MenuItem onClick={handleCloseUserMenu}>
                             <Link to='/' style={{ fontSize: '20px', textDecoration: 'none' }} > Products</Link>
                         </MenuItem>
+                        <MenuItem onClick={handleCloseUserMenu}>
+                            <Link to='/cart' state={{ id: authUser?.id }}> Cart</Link>
+                        </MenuItem>
                     </Menu>
                 </div>
                 <div style={{ marginLeft: '20', backgroundColor: 'fuchsia' }}>
@@ -100,7 +103,7 @@ export default function AppDrawer() {
                     }}>Logout</Button>
                 </div>
             </Box>
-        </Box>
+        </Box >
         <Box >
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 <nav className="navigation">

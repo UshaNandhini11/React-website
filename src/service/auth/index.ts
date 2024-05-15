@@ -69,6 +69,10 @@ function userInfoToUserEntity(response: any) {
 
 function profileInfoToProfileEntity(response: any) {
     let profile = new Profile()
+    let id = response.id
+    if (id) {
+        profile.id = id
+    }
     let username = response.username
     if (username) {
         profile.username = username
