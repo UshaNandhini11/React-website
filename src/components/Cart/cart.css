@@ -1,3 +1,21 @@
+.maincontainer {
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 80%;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .carts {
     background-color: darkgoldenrod;
     padding: 10px;
@@ -8,10 +26,11 @@
 }
 
 .cartProduct {
-    background-color: aqua;
+    background-color: whitesmoke;
     margin: 20px;
     display: flex;
     width: 525px;
+    /* height: 600px; */
     padding: 10px;
     justify-content: center;
 }

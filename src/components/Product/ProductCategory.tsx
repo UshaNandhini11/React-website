@@ -13,7 +13,6 @@ export default function ProductCategory(props: ProductCategoryProps) {
         console.log(categoryName)
         navigate('/productsBycategory', { state: { category: props.element, brands: props.brands } })
     }
-
     return (<>
         <div className='category-card'>
             <p onClick={() => {

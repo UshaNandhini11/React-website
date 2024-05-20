@@ -11,3 +11,17 @@ export function getCartByUserId(id: number): Promise<CartsResponse> {
         }
     })
 }
+
+export function addProductToCart(id: number): Promise<CartsResponse> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const requestData = {
+
+            }
+            let response = await axiosInstance.post('/carts/add', requestData)
+            resolve((response.data))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}

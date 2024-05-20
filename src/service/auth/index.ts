@@ -9,7 +9,7 @@ export function login(username: string, password: string): Promise<User> {
             const requestData = {
                 username: username,
                 password: password,
-                expiresInMins: 1
+                expiresInMins: 10
             }
             let response = await axiosInstance.post('/auth/login', requestData)
             resolve(userInfoToUserEntity(response.data))

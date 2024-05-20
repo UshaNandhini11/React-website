@@ -188,6 +188,9 @@ export default function Products() {
                                                         handleDelete={(index) => {
                                                             handleDelete(index)
                                                         }}
+                                                    // handleAddCart={() => {
+
+                                                    // }}
                                                     />
                                                 )
                                             })

@@ -18,55 +18,57 @@ export default function UserCart() {
     }
 
     return (<>
-        <Container>
-            <Box>
-                <h1>Carts Page</h1>
+        <div className='maincontainer'>
+            <Box className='container'>
+                <h1>Cart Items</h1>
                 {
                     userCart?.carts.map((cart) => (
                         <div key={cart.id} className='carts'>
                             {
                                 cart.products.map((product) => (
                                     <div key={product.id}>
-                                        <div className="cartProduct">
-                                            <form >
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><label htmlFor="productName">Product Name : </label></td>
-                                                            <td><p>{product.title}</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><label htmlFor="quantity">Quantity: </label></td>
-                                                            <td><p>{product.quantity}</p></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><label htmlFor="price">Product price : </label></td>
-                                                            <td><p>{product.price}</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><label htmlFor="discountPercentage">Discounted Percentage : </label></td>
-                                                            <td><p>{product.discountPercentage}</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><label htmlFor="discountAmt">Discounted amount : </label></td>
-                                                            <td><p>{product.discountedPrice}</p></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><label htmlFor="total">Total Amount: </label></td>
-                                                            <td><p>{product.total}</p></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
+                                        < Container>
+                                            <div className="cartProduct">
+                                                <form >
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><label htmlFor="productName">Product Name : </label></td>
+                                                                <td><p>{product.title}</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><label htmlFor="quantity">Quantity: </label></td>
+                                                                <td><p>{product.quantity}</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><label htmlFor="price">Product price : </label></td>
+                                                                <td><p>{product.price}</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><label htmlFor="discountPercentage">Discounted Percentage : </label></td>
+                                                                <td><p>{product.discountPercentage}</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><label htmlFor="discountAmt">Discounted amount : </label></td>
+                                                                <td><p>{product.discountedPrice}</p></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><label htmlFor="total">Total Amount: </label></td>
+                                                                <td><p>{product.total}</p></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </Container>
                                     </div>
                                 ))
                             }
                         </div>
                     ))
                 }
-            </Box>
-        </Container ></>
+            </Box >
+        </div>
+    </>
     )
 }

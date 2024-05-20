@@ -32,7 +32,7 @@ button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* background-color: honeydew; */
+    background-color: sandybrown;
 }
 
 .product-card-cover {
@@ -47,38 +47,6 @@ button {
     cursor: pointer;
 }
 
-.productContent {
-    display: flex;
-    flex-direction: column;
-    background-color: whitesmoke;
-    margin: 10px;
-    position: relative;
-}
-
-.product-card {
-    height: 500px;
-    width: 616px;
-    background-color: whitesmoke;
-    padding: 20px;
-    margin: 40px 20px;
-    position: relative;
-}
-
-.product-card h2 {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    flex-wrap: wrap;
-    /* background-color: darkblue; */
-}
-
-.product-info {
-    display: flex;
-    width: 100%;
-    background-color: darkgoldenrod;
-    justify-content: space-between;
-    padding: 0px 20px;
-}
 
 .categories {
     /* width: 100%; */
@@ -166,6 +134,40 @@ textarea {
     font-size: 25px;
 }
 
+.productContent {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    margin: 10px;
+    position: relative;
+}
+
+.product-card {
+    /* height: 500px; */
+    width: 616px;
+    background-color: transparent;
+    padding: 20px;
+    margin: 20px;
+    position: relative;
+}
+
+.product-card h2 {
+    display: flex;
+    justify-content: center;
+    /* width: 100%; */
+    flex-wrap: wrap;
+    /* background-color: darkblue; */
+}
+
+.product-info {
+    display: flex;
+    width: 100%;
+    background-color: darkgoldenrod;
+    justify-content: space-between;
+    padding: 0px 20px;
+    align-items: center;
+}
+
 .edit-icon {
     /* height: 30px;
     width: 615px; */
@@ -175,8 +177,9 @@ textarea {
     margin-bottom: 10px;
     background-color: transparent;
     position: absolute;
-    top: 15px;
-    right: 90px;
+    /* top: 15px;*/
+    right: 240px;
+    margin-top: 25px;
 }
 
 .delete-icon {
@@ -188,8 +191,9 @@ textarea {
     margin-bottom: 10px;
     background-color: transparent;
     position: absolute;
-    top: 15px;
-    right: 20px;
+    /* top: 15px;*/
+    right: 200px;
+    margin-top: 25px;
 }
 
 .search-card {
@@ -199,4 +203,17 @@ textarea {
     display: flex;
     justify-content: flex-end;
     align-items: end;
+}
+
+.cart-btn {
+    background-color: transparent;
+    position: absolute;
+    right: 50px;
+    margin-top: 15px;
+}
+
+.product-actions {
+    background-color: lightgray;
+    height: 80px;
+    margin: 20px;
 }

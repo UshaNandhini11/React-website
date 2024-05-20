@@ -1,5 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import { Product } from "../../entity/products"
+import Button from "@mui/material/Button"
+import { useState } from "react"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import TextField from "@mui/material/TextField"
+import DialogContentText from "@mui/material/DialogContentText"
+import DialogTitle from "@mui/material/DialogTitle"
 
 interface ProductProps {
     index: number
@@ -10,6 +18,8 @@ interface ProductProps {
 }
 export default function ProductComponent(props: ProductProps) {
     const navigate = useNavigate()
+    const [open, setOpen] = useState<boolean>(false);
+    // const [quantity, setQuantity] = useState<string>()
 
     const handleClick = () => {
         navigate('/productDetails', { state: { id: props.product.id } })
@@ -24,11 +34,20 @@ export default function ProductComponent(props: ProductProps) {
             }
         })
     }
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleToCart = () => {
+
+        navigate('/')
+    }
 
     return (<>
         <div className="productContent">
-            <div className="delete-icon" onClick={() => { props.handleDelete(props.product.id) }}><i className="fa-solid fa-trash"></i></div>
-            <div className="edit-icon" onClick={() => { handleEdit() }}><i className="fas fa-edit"></i></div>
             <div className="product-card" key={props.product.id}
                 onClick={() => {
                     handleClick()
@@ -44,6 +63,54 @@ export default function ProductComponent(props: ProductProps) {
                     </div>
                 </div>
             </div>
+            <div className="product-actions">
+                <div className="cart-btn">
+                    <Button variant='contained' onClick={() => {
+                        handleClickOpen()
+                    }}>Add to cart</Button>
+                </div>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    PaperProps={{
+                        component: 'form',
+                        onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+                            event.preventDefault();
+                            const formData = new FormData(event.currentTarget);
+                            const formJson = Object.fromEntries((formData as any).entries());
+                            const quantity = formJson.quantity
+                            console.log(quantity);
+                            handleToCart();
+                            handleClose();
+                        },
+                    }}
+                >
+                    <DialogTitle>Add Product to your cart </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Select product's quantity
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            required
+                            margin="dense"
+                            id="name"
+                            name="quantity"
+                            label="Quantity"
+                            type="number"
+                            fullWidth
+                            variant="standard"
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant='contained' onClick={handleClose}>Cancel</Button>
+                        <Button variant='contained' type="submit">Add To cart</Button>
+                    </DialogActions>
+                </Dialog>
+                <div className="delete-icon" onClick={() => { props.handleDelete(props.product.id) }}><i className="fa-solid fa-trash"></i></div>
+                <div className="edit-icon" onClick={() => { handleEdit() }}><i className="fas fa-edit"></i></div>
+            </div>
+
         </div>
     </>)
 }
