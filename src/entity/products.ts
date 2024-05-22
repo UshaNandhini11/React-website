@@ -3,14 +3,16 @@ export class Product {
     title: string
     description: string
     price: number
+    discountPercentage: number
     rating: number
+    stock: number
     brand: string
     category: string
-    discountPercentage: number
     thumbnail: string
     images: string[]
-    stock: number
     quantity?: number
     total?: number
     discountedPrice?: number
+    isDeleted: boolean
+    deletedOn: string
 }

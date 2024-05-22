@@ -1,7 +1,7 @@
 import './cart.css'
-import { Box, Container } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getCartByUserId } from "../../service/cart";
+import { deleteProductFromCart, getCartByUserId } from "../../service/cart";
 import { authenticateUser } from "../../service/auth";
 import { CartsResponse } from "../../entity/cartsResponse";
 
@@ -17,6 +17,11 @@ export default function UserCart() {
         setUserCart(cartResponse)
     }
 
+    const handleDeleteProduct = async (productId: number) => {
+        let response = await deleteProductFromCart(productId);
+        // getCartByUserId()
+
+    }
     return (<>
         <div className='maincontainer'>
             <Box className='container'>
@@ -59,6 +64,9 @@ export default function UserCart() {
                                                         </tbody>
                                                     </table>
                                                 </form>
+                                                <div>
+                                                    <Button variant='contained' onClick={() => handleDeleteProduct(product.id)}>Delete Product</Button>
+                                                </div>
                                             </div>
                                         </Container>
                                     </div>

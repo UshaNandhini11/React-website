@@ -33,6 +33,7 @@ export default function AppDrawer() {
     }
     const authenticatedUser = async () => {
         let response = await authenticateUser();
+        localStorage.setItem('UserData', JSON.stringify(response))
         setAuthUser(response)
     }
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -107,6 +108,7 @@ export default function AppDrawer() {
                     <Link to='/' style={{ fontSize: '20px', textDecoration: 'none' }} > Products</Link>
                     <Link to='/contact' style={{ fontSize: '20px', textDecoration: 'none' }}> Contact</Link>
                     <Link to='/portfolio' style={{ fontSize: '20px', textDecoration: 'none' }}> Portfolio</Link >
+                    <Link to='/posts' style={{ fontSize: '20px', textDecoration: 'none' }}> Posts</Link >
                     <Link to='/' > Back to Home</Link >
                 </nav >
             </Drawer>

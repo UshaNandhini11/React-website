@@ -8,6 +8,7 @@ import DialogContent from "@mui/material/DialogContent"
 import TextField from "@mui/material/TextField"
 import DialogContentText from "@mui/material/DialogContentText"
 import DialogTitle from "@mui/material/DialogTitle"
+import { addProductToCart } from "../../service/cart"
 
 interface ProductProps {
     index: number
@@ -41,8 +42,8 @@ export default function ProductComponent(props: ProductProps) {
         setOpen(false);
     };
 
-    const handleToCart = () => {
-
+    const handleAddToCart = async (productId: number, quantity: number) => {
+        let response = await addProductToCart(productId, quantity)
         navigate('/')
     }
 
@@ -80,7 +81,7 @@ export default function ProductComponent(props: ProductProps) {
                             const formJson = Object.fromEntries((formData as any).entries());
                             const quantity = formJson.quantity
                             console.log(quantity);
-                            handleToCart();
+                            handleAddToCart(props.product.id, quantity);
                             handleClose();
                         },
                     }}

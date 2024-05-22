@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: left;
     flex-wrap: wrap;
+    margin: 10px;
 }
 
 .cartProduct {
@@ -33,6 +34,7 @@
     /* height: 600px; */
     padding: 10px;
     justify-content: center;
+    flex-direction: column;
 }
 
 .cartProduct p {

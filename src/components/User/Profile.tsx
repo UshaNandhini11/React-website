@@ -11,7 +11,7 @@ export default function UserProfile() {
     }, [])
     const userProfile = async () => {
         let response = await authenticateUser()
-        localStorage.setItem('UserData', JSON.stringify(response))
+        // localStorage.setItem('UserData', JSON.stringify(response))
         setProfileDetails(response)
     }
     return (<>
