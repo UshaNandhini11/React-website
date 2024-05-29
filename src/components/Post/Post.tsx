@@ -29,7 +29,8 @@ export default function PostsComponent() {
                             <h2>{post.title}</h2>
                             <p>{post.body}</p>
                             <div className="post-icons">
-                                <i className="fa fa-thumbs-up" style={{ fontSize: '25px' }} aria-hidden="true"></i> {post.reactions}
+                                <i className="fa fa-thumbs-up" style={{ fontSize: '25px' }} aria-hidden="true"></i>{post.reactions.likes}
+                                <i className="fa fa-thumbs-down" style={{ fontSize: '25px' }} aria-hidden="true"></i>{post.reactions.dislikes}
                             </div>
                         </Container>
                     </div>

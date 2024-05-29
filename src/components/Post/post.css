@@ -12,7 +12,6 @@
     margin: 10px;
 }
 
-
 .postcontent h2 {
     text-align: center;
 }
@@ -24,4 +23,7 @@
 
 .post-icons {
     margin-bottom: 20px;
+    width: 130px;
+    display: flex;
+    justify-content: space-between;
 }

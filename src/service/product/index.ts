@@ -4,7 +4,7 @@ import axiosInstance from "../../axios"
 export function getProductList(): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axiosInstance.get("/products?limit=0&delay=1000")
+            let response = await axiosInstance.get("/products?limit=0")
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
             reject(error)
@@ -44,7 +44,8 @@ export function updateProduct(id: number, payload: Product): Promise<Product> {
 export function getProductsCategories(): Promise<string[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axiosInstance.get("/products/categories")
+            let response = await axiosInstance.get("products/category-list")
+            console.log("categorylist::" + response.data)
             resolve(response.data)
         } catch (error) {
             reject(error)

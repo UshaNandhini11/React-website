@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
+import Container from '@mui/material/Container';
 
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -41,7 +42,7 @@ export default function Products() {
             } else {
                 setSearchedProducts([])
             }
-        }, 5000)
+        }, 1000)
 
         return () => clearTimeout(delaySearchInput);
     }, [searchText]);
@@ -84,7 +85,6 @@ export default function Products() {
     }
     const handleSearch = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setSearchText(event?.target.value)
-        console.log("search Text!!!" + searchText)
     }
     const handleDelete = async (id: number) => {
         try {
@@ -103,19 +103,24 @@ export default function Products() {
     return (<>
         <div>
             <div className="categories">
-                <div className="category-list">
-                    {
-                        categories?.map((element, index) => {
-                            return (
-                                <ProductCategory
-                                    key={index}
-                                    element={element}
-                                    brands={brands} />
-                            )
-                        })
-                    }
-                </div>
+                <Container>
+                    <div className="category-list">
+
+                        {
+                            categories?.map((element, index) => {
+                                return (
+                                    <ProductCategory
+                                        key={index}
+                                        element={element}
+                                        brands={brands} />
+                                )
+                            })
+                        }
+
+                    </div>
+                </Container>
             </div>
+
             <div className="product">
                 <header className='product-header'>
                     <h1>Products</h1>

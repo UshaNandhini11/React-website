@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const navigate = useNavigate();
-    const [userName, setUserName] = useState<string>('kminchelle')
-    const [password, setPassword] = useState<string>('0lelplR')
+    const [userName, setUserName] = useState<string>('emilys')
+    const [password, setPassword] = useState<string>('emilyspass')
 
     const handleNameInput = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         setUserName(event.target.value)
