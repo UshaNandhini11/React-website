@@ -2,7 +2,7 @@ import axiosInstance from "../../axios"
 import { Posts } from "../../entity/posts"
 
 export function getPostsList(): Promise<Posts[]> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<Posts[]>(async (resolve, reject) => {
         try {
             let response = await axiosInstance.get("/posts?limit=0&delay=1000")
             resolve(postsInfosTopostsEntities(response.data.posts))

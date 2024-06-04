@@ -10,55 +10,60 @@ import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import Container from '@mui/material/Container';
+import { refreshToken } from '../../service/auth';
+import GridViewIcon from '@mui/icons-material/GridView';
+import ListIcon from '@mui/icons-material/List';
 
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<string[] | undefined>()
     const [brands, setBrands] = useState<string[] | undefined>()
     const navigate = useNavigate()
-    const [isLoading, setIsLoading] = useState(true);
-    const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>();
+    // const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
     const [searchText, setSearchText] = useState<string>('')
     const [deleteMessage, setDeleteMessage] = useState<string>('')
+    const [toggleView, setToggleView] = useState<boolean>(true)
 
     useEffect(() => {
         getProducts();
+        // getNewToken();
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
         if (products?.length > 0) {
             getCategories();
             getBrands();
         }
     }, [products])
-
     useEffect(() => {
-        const delaySearchInput = setTimeout(() => {
-            if (searchText) {
-                searchProduct();
-            } else {
-                setSearchedProducts([])
-            }
-        }, 1000)
-
-        return () => clearTimeout(delaySearchInput);
+        if (searchText) {
+            searchProduct(searchText)
+        } else {
+            setProducts(products)
+        }
     }, [searchText]);
-
+    const getNewToken = async () => {
+        let response = await refreshToken();
+        console.log("new token::" + response.token)
+    }
     const getProducts = async () => {
         try {
+            setIsLoading(true)
             let response = await getProductList()
             setProducts(response)
+            // setSearchedProducts(response)
+            setIsLoading(false)
         } catch (error) {
             console.log(error)
         }
     }
     const getCategories = async () => {
         try {
+            setIsLoading(true)
             let response = await getProductsCategories();
             setCategories(response)
+            setIsLoading(false)
         } catch (error) {
             console.log("Error in getCategories::" + error)
         }
@@ -75,15 +80,26 @@ export default function Products() {
     const handleAddProduct = () => {
         navigate('/addProduct', { state: { mode: 'add', categories: categories, brands: brands } })
     }
-    const searchProduct = async () => {
+    const searchProduct = async (text: string) => {
         try {
-            let response = await searchProducts(searchText)
-            setSearchedProducts(response)
+            const filterBySearch = products.filter((product) => {
+                if (
+                    product?.title?.toLowerCase()?.includes(text?.toLowerCase()) ||
+                    product?.category?.toLowerCase()?.includes(text?.toLowerCase()) ||
+                    product?.description?.toLowerCase()?.includes(text?.toLowerCase()) ||
+                    product?.brand?.toLowerCase()?.includes(text?.toLowerCase())
+                ) {
+                    return product;
+                }
+            })
+            // console.log(filterBySearch)
+            setProducts(filterBySearch);
         } catch (error) {
             console.log(error)
         }
     }
-    const handleSearch = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleSearchInput = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        console.log(event?.target.value)
         setSearchText(event?.target.value)
     }
     const handleDelete = async (id: number) => {
@@ -100,12 +116,15 @@ export default function Products() {
             console.log("Error in Delete Product :: " + error)
         }
     }
+    const selectViewType = () => {
+        setToggleView(!toggleView)
+    }
+
     return (<>
         <div>
             <div className="categories">
                 <Container>
                     <div className="category-list">
-
                         {
                             categories?.map((element, index) => {
                                 return (
@@ -116,28 +135,30 @@ export default function Products() {
                                 )
                             })
                         }
-
                     </div>
                 </Container>
             </div>
-
             <div className="product">
                 <header className='product-header'>
-                    <h1>Products</h1>
+                    <div> <h1>Products</h1></div>
                     <div className="search-card">
                         <TextField
                             id="search-bar"
-                            className="text"
+                            // className="text"
                             variant="outlined"
                             placeholder="Search..."
                             size="small"
                             value={searchText}
                             onChange={(event) => {
-                                handleSearch(event)
+                                handleSearchInput(event)
                             }}
                         />
                     </div>
-                    <Button variant='contained' style={{ marginTop: 30 }} onClick={() => handleAddProduct()}>Add Product</Button>
+                    <div className='view-icons'>
+                        <ListIcon fontSize="large" onClick={() => { selectViewType() }} />
+                        <GridViewIcon fontSize="medium" onClick={() => { selectViewType() }} />
+                    </div>
+                    <div><Button variant='contained' onClick={() => handleAddProduct()}>Add Product</Button></div>
                 </header>
                 <section>
                     <div className='loading-circular-progress'>
@@ -158,50 +179,24 @@ export default function Products() {
                     }
                 </section>
                 <section className="productList">
-                    <div className="product-card-cover">
+                    <div className={toggleView ? "product-cardCover-gridView" : "product-cardCover-listView"}>
                         {
-                            searchedProducts.length > 0 ?
-                                (<>
-                                    {
-                                        searchedProducts.map((product, index) => {
-                                            return (
-                                                <ProductComponent
-                                                    key={index}
-                                                    index={index}
-                                                    product={product}
-                                                    categories={categories}
-                                                    brands={brands}
-                                                    handleDelete={(index) => {
-                                                        handleDelete(index)
-                                                    }}
-                                                />
-                                            )
-                                        })
-                                    }
-                                </>
-                                ) : (
-                                    <>
-                                        {
-                                            products.map((product, index) => {
-                                                return (
-                                                    <ProductComponent
-                                                        key={index}
-                                                        index={index}
-                                                        product={product}
-                                                        categories={categories}
-                                                        brands={brands}
-                                                        handleDelete={(index) => {
-                                                            handleDelete(index)
-                                                        }}
-                                                    // handleAddCart={() => {
-
-                                                    // }}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </>
+                            products.length > 0 &&
+                            products.map((product, index) => {
+                                return (
+                                    <ProductComponent
+                                        key={index}
+                                        index={index}
+                                        product={product}
+                                        categories={categories}
+                                        brands={brands}
+                                        toggleView={toggleView}
+                                        handleDelete={(index) => {
+                                            handleDelete(index)
+                                        }}
+                                    />
                                 )
+                            })
                         }
                     </div>
                 </section>

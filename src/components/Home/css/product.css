@@ -18,8 +18,9 @@ header h1 {
     height: 100px;
     width: 80%;
     /* flex-direction: row; */
-    justify-content: space-around;
-    /* background-color: hotpink; */
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: transparent;
 }
 
 button {
@@ -32,10 +33,10 @@ button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: transparent;
+    background-color: whitesmoke;
 }
 
-.product-card-cover {
+.product-cardCover-gridView {
     width: 80%;
     display: flex;
     flex-wrap: wrap;
@@ -43,13 +44,21 @@ button {
     background-color: transparent;
 }
 
-.product-card-cover:hover {
+.product-cardCover-gridView:hover {
     cursor: pointer;
+}
+
+.product-cardCover-listView {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: pink;
 }
 
 .categories {
     /* width: 100%; */
-    background-color: salmon;
+    background-color: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,22 +68,31 @@ button {
     width: 100%;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 
 .category-card {
-    background-color: pink;
+    background-color: transparent;
     display: block;
     margin: 5px;
     flex-wrap: wrap;
     padding: 0px 5px;
     cursor: pointer;
+    border: 1px solid crimson;
+    border-radius: 10px;
 }
 
 .category-card p {
     font-size: 20px;
     text-align: center;
     text-transform: capitalize;
+}
+
+.category-card:hover {
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 10px;
+    border-color: cyan;
 }
 
 .product-details {
@@ -134,24 +152,50 @@ textarea {
     font-size: 25px;
 }
 
-.productContent {
+.productContent-gridView {
+    /* width: 90%; */
     display: flex;
     flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
     background-color: whitesmoke;
     margin: 10px;
     position: relative;
 }
 
-.product-card {
+.productContent-listView {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: aquamarine;
+    margin: 10px;
+    position: relative;
+}
+
+.product-card-gridView {
     /* height: 500px; */
     width: 616px;
-    background-color: transparent;
+    background-color: white;
     padding: 20px;
     margin: 20px;
     position: relative;
 }
 
-.product-card h2 {
+.product-card-listView {
+    /* height: 500px; */
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 20px;
+    margin: 20px;
+    position: relative;
+    display: flex;
+    align-items: left;
+}
+
+.product-card-gridView h2,
+.product-card-listView h2 {
     display: flex;
     justify-content: center;
     /* width: 100%; */
@@ -159,13 +203,22 @@ textarea {
     /* background-color: darkblue; */
 }
 
-.product-info {
+.product-info-gridView {
     display: flex;
     width: 100%;
     background-color: darkgoldenrod;
     justify-content: space-between;
     padding: 0px 20px;
     align-items: center;
+}
+
+.product-info-listView {
+    display: flex;
+    width: 50%;
+    background-color: forestgreen;
+    justify-content: space-between;
+    padding: 0px 20px;
+    /* align-items: end; */
 }
 
 .edit-icon {
@@ -197,7 +250,6 @@ textarea {
 }
 
 .search-card {
-    height: 80px;
     width: 50%;
     background-color: transparent;
     display: flex;
@@ -216,4 +268,44 @@ textarea {
     background-color: lightgray;
     height: 80px;
     margin: 20px;
+}
+
+.view-icons {
+    display: flex;
+    width: 150px;
+    background-color: transparent;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    /* border: 1px solid grey; */
+    cursor: pointer;
+}
+
+.listView {
+    padding-right: 50px;
+    background-color: transparent;
+    font-size: 35px;
+    color: grey;
+    /* background-color: greenyellow; */
+    /* border: 1px solid grey; */
+    padding: 10px;
+}
+
+.gridView {
+    padding-right: 50px;
+    background-color: transparent;
+    /* font-size: 30px; */
+    color: grey;
+    /* background-color: lightskyblue; */
+    /* border: 1px solid grey; */
+    padding: 10px;
+}
+
+.active {
+    border: 1px solid black;
+}
+
+li {
+    list-style: none;
 }

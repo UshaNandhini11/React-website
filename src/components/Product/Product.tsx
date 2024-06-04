@@ -16,6 +16,7 @@ interface ProductProps {
     categories: string[] | undefined
     brands: String[] | undefined
     handleDelete: (index: number) => void
+    toggleView: boolean
 }
 export default function ProductComponent(props: ProductProps) {
     const navigate = useNavigate()
@@ -48,8 +49,8 @@ export default function ProductComponent(props: ProductProps) {
     }
 
     return (<>
-        <div className="productContent">
-            <div className="product-card" key={props.product.id}
+        <div className={props.toggleView ? "productContent-gridView" : "productContent-listView"}>
+            <div className={props.toggleView ? "product-card-gridView" : "product-card-listView"} key={props.product.id}
                 onClick={() => {
                     handleClick()
                 }} >
@@ -58,7 +59,8 @@ export default function ProductComponent(props: ProductProps) {
                 </div>
                 <div >
                     <h2>{props.product.title}</h2>
-                    <div className="product-info" >
+                    <p>{props.toggleView ? null : props.product.description}</p>
+                    <div className={props.toggleView ? "product-info-gridView" : "product-info-listView"}>
                         <h4>{props.product.brand}</h4>
                         <h4><i className="fa-solid fa-star"></i>  {props.product.rating}</h4>
                     </div>
