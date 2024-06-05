@@ -53,7 +53,7 @@ button {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: pink;
+    background-color: transparent;
 }
 
 .categories {
@@ -169,7 +169,7 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: aquamarine;
+    background-color: white;
     margin: 10px;
     position: relative;
 }
@@ -186,7 +186,7 @@ textarea {
 .product-card-listView {
     /* height: 500px; */
     width: 100%;
-    background-color: whitesmoke;
+    background-color: white;
     padding: 20px;
     margin: 20px;
     position: relative;
@@ -215,7 +215,7 @@ textarea {
 .product-info-listView {
     display: flex;
     width: 50%;
-    background-color: forestgreen;
+    background-color: darkgoldenrod;
     justify-content: space-between;
     padding: 0px 20px;
     /* align-items: end; */
@@ -308,4 +308,12 @@ textarea {
 
 li {
     list-style: none;
+}
+
+.pagination label {
+    font-size: 20px;
+}
+
+.pagination {
+    background-color: transparent;
 }

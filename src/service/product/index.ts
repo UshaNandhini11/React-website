@@ -1,10 +1,10 @@
 import { Product } from "../../entity/products"
 import axiosInstance from "../../axios"
 
-export function getProductList(): Promise<Product[]> {
+export function getProductList(value: number): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = await axiosInstance.get("/products?limit=0")
+            let response = await axiosInstance.get(`/products?limit=${value}`)
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
             reject(error)

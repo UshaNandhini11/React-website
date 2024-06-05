@@ -1,7 +1,7 @@
 import '../Home/css/product.css'
 import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
-import { deleteProduct, getProductList, getProductsCategories, searchProducts } from "../../service/product";
+import { deleteProduct, getProductList, getProductsCategories } from "../../service/product";
 import ProductCategory from '../Product/ProductCategory';
 import ProductComponent from '../Product/Product';
 import Button from '@mui/material/Button';
@@ -13,6 +13,8 @@ import Container from '@mui/material/Container';
 import { refreshToken } from '../../service/auth';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ListIcon from '@mui/icons-material/List';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 export default function Products() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -20,10 +22,10 @@ export default function Products() {
     const [brands, setBrands] = useState<string[] | undefined>()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>();
-    // const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
     const [searchText, setSearchText] = useState<string>('')
     const [deleteMessage, setDeleteMessage] = useState<string>('')
     const [toggleView, setToggleView] = useState<boolean>(true)
+    const [productsPerPage, setProductsPerPage] = useState<number>(12);
 
     useEffect(() => {
         getProducts();
@@ -50,9 +52,9 @@ export default function Products() {
     const getProducts = async () => {
         try {
             setIsLoading(true)
-            let response = await getProductList()
+            // let response = await getProductList()
+            let response = await getProductList(Number(productsPerPage));
             setProducts(response)
-            // setSearchedProducts(response)
             setIsLoading(false)
         } catch (error) {
             console.log(error)
@@ -119,7 +121,15 @@ export default function Products() {
     const selectViewType = () => {
         setToggleView(!toggleView)
     }
-
+    const handlePagination = async (event: SelectChangeEvent<number>) => {
+        setProductsPerPage(Number(event?.target?.value))
+        console.log("productsPerPage---" + event?.target?.value)
+        console.log("productsPerPageq2---" + Number(productsPerPage))
+        let response = await getProductList(Number(event?.target?.value))
+        // let response = await getProductList(Number(productsPerPage))
+        // console.log(response)
+        setProducts(response)
+    }
     return (<>
         <div>
             <div className="categories">
@@ -157,6 +167,18 @@ export default function Products() {
                     <div className='view-icons'>
                         <ListIcon fontSize="large" onClick={() => { selectViewType() }} />
                         <GridViewIcon fontSize="medium" onClick={() => { selectViewType() }} />
+                    </div>
+                    <div className='pagination'>
+                        <label htmlFor="selectPage">Show:  </label>
+                        <Select id="selectPage"
+                            value={productsPerPage}
+                            onChange={(event) => { handlePagination(event) }} >
+                            <MenuItem value={12}>12</MenuItem>
+                            <MenuItem value={25}>25</MenuItem>
+                            <MenuItem value={50}>50</MenuItem>
+                            <MenuItem value={100}>100</MenuItem>
+                            <MenuItem value={200}>200</MenuItem>
+                        </Select>
                     </div>
                     <div><Button variant='contained' onClick={() => handleAddProduct()}>Add Product</Button></div>
                 </header>
@@ -201,6 +223,6 @@ export default function Products() {
                     </div>
                 </section>
             </div >
-        </div>
+        </div >
     </>)
 }
