@@ -166,20 +166,20 @@ export default function Products() {
     return (<>
         <div>
             <div className="categories">
-                <Container>
-                    <div className="category-list">
-                        {
-                            categories?.map((element, index) => {
-                                return (
-                                    <ProductCategory
-                                        key={index}
-                                        element={element}
-                                        brands={brands} />
-                                )
-                            })
-                        }
-                    </div>
-                </Container>
+                {/* <Container> */}
+                <div className="category-list">
+                    {
+                        categories?.map((element, index) => {
+                            return (
+                                <ProductCategory
+                                    key={index}
+                                    element={element}
+                                    brands={brands} />
+                            )
+                        })
+                    }
+                </div>
+                {/* </Container> */}
             </div>
             <div className="product">
                 <header className='product-header'>

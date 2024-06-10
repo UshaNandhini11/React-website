@@ -10,8 +10,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { authenticateUser } from "../../service/auth";
 import MenuItem from "@mui/material/MenuItem";
 import { Profile } from "../../entity/profile";
+import logo from '../../assets/images/logo.jpg'
+import './appBar.css'
 
-export default function AppDrawer() {
+export default function AppBar() {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate()
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -46,25 +48,30 @@ export default function AppDrawer() {
         console.log("auth id::" + authUser?.id)
         navigate('/cart', { state: { id: authUser?.id } })
     }
+
     return (<>
-        <Box className="header">
-            <Box className="hamburger">
+
+        <Box className="appbar-header">
+            <Box className="appbar-hamburger">
                 <i className="fa fa-bars" aria-hidden="true" style={{ color: 'grey' }}
                     onClick={toggleDrawer(true)}
                 ></i>
             </Box>
-            <Box className="headerLeft">
-                <h1>Welcome to our Page</h1>
+            < Box className="logo">
+                <img src={logo} alt="logo" height={65} width={100} />
+            </Box>
+            <Box className="appbar-headerLeft">
+                <h1>Welcome to Shop Cart</h1>
             </Box>
             <Box>
-                <div className="headerRight">
+                <div className="appbar-headerRight">
                     <a href=""><i className="fa-solid fa-cart-shopping" onClick={() => {
                         handleCart()
                     }}></i></a>
 
                 </div>
             </Box>
-            <Box className="headerRight">
+            <Box className="appbar-headerRight">
                 <div>
                     <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -95,23 +102,22 @@ export default function AppDrawer() {
                         </MenuItem>
                     </Menu>
                 </div>
-                <div style={{ marginLeft: '20', backgroundColor: 'fuchsia' }}>
-                    <Button variant='contained' onClick={() => {
-                        handleLogout()
-                    }}>Logout</Button>
+                <div style={{ marginLeft: '20' }}>
+                    <Button variant='contained' onClick={() => { handleLogout() }}>Logout</Button>
                 </div>
             </Box>
         </Box >
         <Box >
-            <Drawer open={open} onClose={toggleDrawer(false)}>
-                <nav className="navigation">
-                    <Link to='/' style={{ fontSize: '20px', textDecoration: 'none' }} > Products</Link>
-                    <Link to='/contact' style={{ fontSize: '20px', textDecoration: 'none' }}> Contact</Link>
-                    <Link to='/portfolio' style={{ fontSize: '20px', textDecoration: 'none' }}> Portfolio</Link >
-                    <Link to='/posts' style={{ fontSize: '20px', textDecoration: 'none' }}> Posts</Link >
-                    <Link to='/' > Back to Home</Link >
+            <Drawer open={open} onClose={toggleDrawer(false)} >
+                <nav className="appbar-navigation">
+                    <Link to='/' className="appbar-links" > Products</Link>
+                    <Link to='/contact' className="appbar-links"> Contact</Link>
+                    <Link to='/portfolio' className="appbar-links"> Portfolio</Link >
+                    <Link to='/posts' className="appbar-links"> Posts</Link >
+                    <Link to='/' className="appbar-links"> Back to Home</Link >
                 </nav >
             </Drawer>
-        </Box>
+        </Box >
+
     </>)
 }

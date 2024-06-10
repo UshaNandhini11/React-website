@@ -44,9 +44,10 @@ button {
     background-color: transparent;
 }
 
-.product-cardCover-gridView:hover {
+/* .product-cardCover-gridView:hover {
     cursor: pointer;
-}
+
+} */
 
 .product-cardCover-listView {
     width: 100%;
@@ -62,13 +63,15 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* flex-wrap: wrap; */
 }
 
 .category-list {
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     justify-content: center;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
+    background-color: transparent;
 }
 
 .category-card {
@@ -80,6 +83,7 @@ button {
     cursor: pointer;
     border: 1px solid crimson;
     border-radius: 10px;
+
 }
 
 .category-card p {
@@ -92,7 +96,8 @@ button {
     background-color: cornflowerblue;
     color: white;
     border-radius: 10px;
-    border-color: cyan;
+    border-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .product-details {
@@ -161,6 +166,7 @@ textarea {
     background-color: whitesmoke;
     margin: 10px;
     position: relative;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
 .productContent-listView {
@@ -177,10 +183,11 @@ textarea {
 .product-card-gridView {
     /* height: 500px; */
     width: 616px;
-    background-color: white;
+    background-color: whitesmoke;
     padding: 20px;
     margin: 20px;
     position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .product-card-listView {
@@ -201,6 +208,23 @@ textarea {
     /* width: 100%; */
     flex-wrap: wrap;
     /* background-color: darkblue; */
+}
+
+.product-card-gridView:hover,
+.product-card-listView:hover {
+    box-shadow: none;
+}
+
+.product-card-listView:hover {
+    box-shadow: none;
+    background-color: whitesmoke;
+}
+
+.productContent-gridView:hover,
+.productContent-listView:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+    background-color: whitesmoke;
 }
 
 .product-info-gridView {

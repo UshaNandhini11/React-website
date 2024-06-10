@@ -1,0 +1,92 @@
+.loginForm {
+    height: 100vh;
+    width: 100%;
+    background-color: lightseagreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Milonga', cursive;
+}
+
+.reactForm {
+    width: 50%;
+    padding: 10px;
+    background-color: honeydew;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+}
+
+.label {
+    width: 50%;
+    display: flex;
+}
+
+.inputTextBox {
+    padding: 20px;
+}
+
+.fonts {
+    font-family: "Montserrat", sans-serif;
+}
+
+.signup-header {
+    height: 80px;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-around;
+}
+
+.signup-headerLeft {
+    height: 80px;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 4;
+}
+
+.signUp {
+    background-color: honeydew;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.signupform {
+    background-color: beige;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.signup-inputblock {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signup-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    width: 100%;
+    /* font-size: 50px; */
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+
+}

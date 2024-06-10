@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import './../Home/css/header.css'
+import './auth.css'
 import { Button, Checkbox, FormControlLabel, InputLabel } from "@mui/material";
 import { login } from '../../service/auth';
 import { useNavigate } from 'react-router-dom';

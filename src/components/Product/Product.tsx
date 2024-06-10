@@ -23,7 +23,7 @@ export default function ProductComponent(props: ProductProps) {
     const [open, setOpen] = useState<boolean>(false);
     // const [quantity, setQuantity] = useState<string>()
 
-    const handleClick = () => {
+    const handleSingleProductClick = () => {
         navigate('/productDetails', { state: { id: props.product.id } })
     }
     const handleEdit = () => {
@@ -52,7 +52,7 @@ export default function ProductComponent(props: ProductProps) {
         <div className={props.toggleView ? "productContent-gridView" : "productContent-listView"}>
             <div className={props.toggleView ? "product-card-gridView" : "product-card-listView"} key={props.product.id}
                 onClick={() => {
-                    handleClick()
+                    handleSingleProductClick()
                 }} >
                 <div style={{ position: 'relative' }}>
                     <img src={props.product.thumbnail} alt="img1" height={280} width={570} />
