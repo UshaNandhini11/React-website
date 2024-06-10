@@ -7,6 +7,7 @@ export function getPostsList(): Promise<Posts[]> {
             let response = await axiosInstance.get("/posts?limit=0&delay=1000")
             resolve(postsInfosTopostsEntities(response.data.posts))
         } catch (error) {
+            console.log("Error in getPostsList::" + error)
             reject(error)
         }
     })

@@ -26,6 +26,8 @@ export default function Products() {
     const [deleteMessage, setDeleteMessage] = useState<string>('')
     const [toggleView, setToggleView] = useState<boolean>(true)
     const [productsPerPage, setProductsPerPage] = useState<number>(12);
+    const [sortOption, setSortOption] = useState<string>('Default')
+
 
     useEffect(() => {
         getProducts();
@@ -130,6 +132,37 @@ export default function Products() {
         // console.log(response)
         setProducts(response)
     }
+    const sortProductsByFuntion = (option: string) => {
+        let sortedProducts = [...products];
+        console.log("Product bedore sort" + products.toString())
+        if (option === 'price-asc') {
+            sortedProducts.sort((a, b) => a.price - b.price);
+        } else if (option === 'price-desc') {
+            sortedProducts.sort((a, b) => b.price - a.price);
+        } else if (option === 'productName-asc') {
+            sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
+        } else if (option === 'productName-desc') {
+            sortedProducts.sort((a, b) => b.title.localeCompare(a.title));
+        } else if (option === 'rating-asc') {
+            sortedProducts.sort((a, b) => a.rating - b.rating);
+        } else if (option === 'rating-desc') {
+            sortedProducts.sort((a, b) => b.rating - a.rating);
+        } else if (option === 'brand-asc') {
+            console.log("brand a-z")
+            sortedProducts.sort((a, b) => a.brand.localeCompare(b.brand));
+        } else if (option === 'brand-desc') {
+            console.log("brand z-a")
+            sortedProducts.sort((a, b) => b.brand.localeCompare(a.brand));
+        } else if (option === 'Default') {
+            setProducts(products);
+            console.log("Product after sort" + products.toString())
+        }
+        setProducts(sortedProducts);
+    };
+    const handleSorting = async (event: SelectChangeEvent<string>) => {
+        setSortOption(event.target.value)
+        sortProductsByFuntion(event.target.value)
+    }
     return (<>
         <div>
             <div className="categories">
@@ -169,17 +202,37 @@ export default function Products() {
                         <GridViewIcon fontSize="medium" onClick={() => { selectViewType() }} />
                     </div>
                     <div className='pagination'>
+                        <label htmlFor="selectPage">
+                            sort By:  </label>
+                        <Select id="selectPage"
+                            value={sortOption}
+                            onChange={(event) => { handleSorting(event) }}
+                        >
+                            <MenuItem value='Default'>Default</MenuItem>
+                            <MenuItem value='productName-asc'>Name (A-Z)</MenuItem>
+                            <MenuItem value='productName-desc'>Name (Z-A)</MenuItem>
+                            <MenuItem value='price-asc'>Price(Low - High)</MenuItem>
+                            <MenuItem value='price-desc'>Price(High - Low)</MenuItem>
+                            <MenuItem value='rating-desc'>Rating(Highest)</MenuItem>
+                            <MenuItem value='rating-asc'>Rating(Lowest)</MenuItem>
+                            <MenuItem value='brand-asc'>Model(A-Z)</MenuItem>
+                            <MenuItem value='brand-desc'>Model (Z-A)</MenuItem>
+                        </Select>
+                    </div>
+                    <div className='pagination'>
                         <label htmlFor="selectPage">Show:  </label>
                         <Select id="selectPage"
                             value={productsPerPage}
                             onChange={(event) => { handlePagination(event) }} >
                             <MenuItem value={12}>12</MenuItem>
                             <MenuItem value={25}>25</MenuItem>
+                            <MenuItem value={30}>30</MenuItem>
                             <MenuItem value={50}>50</MenuItem>
                             <MenuItem value={100}>100</MenuItem>
                             <MenuItem value={200}>200</MenuItem>
                         </Select>
                     </div>
+
                     <div><Button variant='contained' onClick={() => handleAddProduct()}>Add Product</Button></div>
                 </header>
                 <section>

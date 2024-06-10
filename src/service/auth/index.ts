@@ -9,11 +9,12 @@ export function login(username: string, password: string): Promise<User> {
             const requestData = {
                 username: username,
                 password: password,
-                expiresInMins: 0.25
+                expiresInMins: 1
             }
             let response = await axiosInstance.post('/auth/login', requestData)
             resolve(userInfoToUserEntity(response.data))
         } catch (error) {
+            console.log("Error in login::" + error)
             reject(error)
         }
     });
@@ -25,6 +26,7 @@ export function authenticateUser(): Promise<Profile> {
             let response = await axiosInstance.get('/auth/me')
             resolve(profileInfoToProfileEntity(response.data))
         } catch (error) {
+            console.log("Error in authenticateUser::" + error)
             reject(error)
         }
     })
@@ -33,7 +35,7 @@ export function refreshToken(): Promise<User> {
     return new Promise(async (resolve, reject) => {
         try {
             const requestData = {
-                expiresInMins: 30
+                expiresInMins: 1
             }
             let response = await axiosInstance.post('/auth/refresh', requestData)
             console.log("refresh token::", response.data);
@@ -59,10 +61,6 @@ function userInfoToUserEntity(response: any) {
     if (email) {
         user.email = email
     }
-    let token = response.token
-    if (token) {
-        user.token = token
-    }
     let firstName = response.firstName
     if (firstName) {
         user.firstName = firstName
@@ -78,6 +76,14 @@ function userInfoToUserEntity(response: any) {
     let image = response.image
     if (image) {
         user.image = image
+    }
+    let token = response.token
+    if (token) {
+        user.token = token
+    }
+    let refreshToken = response.refreshToken
+    if (refreshToken) {
+        user.refreshToken = refreshToken
     }
     return user
 }

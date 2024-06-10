@@ -10,6 +10,7 @@ export function getCartByUserId(userId: number): Promise<CartsResponse> {
             let response = await axiosInstance.get(`/carts/user/${userId}`)
             resolve((response.data))
         } catch (error) {
+            console.log("Error in getCartByUserId::" + error)
             reject(error)
         }
     })
@@ -32,6 +33,7 @@ export function addProductToCart(productId: number, quantity: number): Promise<C
             let response = await axiosInstance.post('/carts/add', requestData)
             resolve((response.data))
         } catch (error) {
+            console.log("Error in addProductToCart::" + error)
             reject(error)
         }
     })
@@ -54,6 +56,7 @@ export function updateProductToCart(productId: number, quantity: number): Promis
             let response = await axiosInstance.put(`/carts/add/${data.id}`, requestData)
             resolve((response.data))
         } catch (error) {
+            console.log("Error in updateProductToCart::" + error)
             reject(error)
         }
     })
@@ -64,6 +67,7 @@ export function deleteProductFromCart(productId: number): Promise<Product> {
             let response = await axiosInstance.delete(`/products/${productId}`)
             resolve((response.data))
         } catch (error) {
+            console.log("Error in deleteProductFromCart::" + error)
             reject(error)
         }
     })

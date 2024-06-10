@@ -7,6 +7,7 @@ export function getProductList(value: number): Promise<Product[]> {
             let response = await axiosInstance.get(`/products?limit=${value}`)
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
+            console.log("Error in getProductList::" + error)
             reject(error)
         }
     })
@@ -17,6 +18,7 @@ export function getProductById(id: number): Promise<Product> {
             let response = await axiosInstance.get(`/products/${id}`)
             resolve(productInfoToProductEntity(response.data))
         } catch (error) {
+            console.log("Error in getProductById::" + error)
             reject(error)
         }
     })
@@ -27,6 +29,7 @@ export function addProduct(payload: Product): Promise<Product> {
             let response = await axiosInstance.post('/products/add', payload)
             resolve(productInfoToProductEntity(response.data))
         } catch (error) {
+            console.log("Error in addProduct::" + error)
             reject(error)
         }
     })
@@ -37,6 +40,7 @@ export function updateProduct(id: number, payload: Product): Promise<Product> {
             let response = await axiosInstance.put(`/products/${id}`, payload)
             resolve(productInfoToProductEntity(response.data))
         } catch (error) {
+            console.log("Error in updateProduct::" + error)
             reject(error)
         }
     })
@@ -48,6 +52,7 @@ export function getProductsCategories(): Promise<string[]> {
             console.log("categorylist::" + response.data)
             resolve(response.data)
         } catch (error) {
+            console.log("Error in getProductsCategories::" + error)
             reject(error)
         }
     })
@@ -58,6 +63,7 @@ export function getproductsBycategory(categoryName: string): Promise<Product[]> 
             let response = await axiosInstance.get(`/products/category/${categoryName}`)
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
+            console.log("Error in getproductsBycategory::" + error)
             reject(error)
         }
     })
@@ -68,6 +74,7 @@ export function searchProducts(searchText: string): Promise<Product[]> {
             let response = await axiosInstance.get(`/products/search?q=${searchText}`)
             resolve(productsInfosToProductsEntities(response.data.products))
         } catch (error) {
+            console.log("Error in searchProducts::" + error)
             reject(error)
         }
     })
@@ -78,6 +85,7 @@ export function deleteProduct(id: number): Promise<Product> {
             let response = await axiosInstance.delete(`/products/${id}`)
             resolve(productInfoToProductEntity(response.data))
         } catch (error) {
+            console.log("Error in deleteProduct::" + error)
             reject(error)
         }
     })
