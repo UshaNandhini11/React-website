@@ -1,11 +1,21 @@
+* {
+    font-family: "Montserrat", sans-serif;
+    /* font-family: 'Milonga', cursive; */
+}
+
+h1 {
+    color: rgb(0, 129, 129);
+}
+
+/* 
 h1 {
     color: rgb(0, 129, 129);
     font-family: 'Milonga', cursive;
     font-weight: 400;
     font-size: 30px;
     word-spacing: 5px;
-    /* margin-top: 50px;
-    margin-bottom: 50px; */
+    margin-top: 50px;
+    margin-bottom: 50px;
     text-transform: capitalize;
     margin: 50px;
-}
+} */

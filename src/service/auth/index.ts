@@ -9,7 +9,7 @@ export function login(username: string, password: string): Promise<User> {
             const requestData = {
                 username: username,
                 password: password,
-                expiresInMins: 1
+                expiresInMins: 300
             }
             let response = await axiosInstance.post('/auth/login', requestData)
             resolve(userInfoToUserEntity(response.data))
@@ -35,7 +35,7 @@ export function refreshToken(): Promise<User> {
     return new Promise(async (resolve, reject) => {
         try {
             const requestData = {
-                expiresInMins: 1
+                expiresInMins: 60
             }
             let response = await axiosInstance.post('/auth/refresh', requestData)
             console.log("refresh token::", response.data);

@@ -22,15 +22,14 @@ export default function ProductsBycategory() {
     }
     return (<>
         <div style={{ display: 'flex' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', margin: 20, padding: 20 }} >
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', margin: 20, padding: 20, backgroundColor: 'hotpink' }} >
                 {
                     productsBycategory?.map((productBycategory, index) => {
                         return (
                             <div key={index}>
                                 <ProductComponent index={index} product={productBycategory} categories={undefined} brands={location.state.brands}
                                     handleDelete={function (index: number): void {
-
-                                    }} />
+                                    }} toggleView={false} />
                             </div>
                         )
                     })

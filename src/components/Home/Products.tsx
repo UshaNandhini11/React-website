@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
-import Container from '@mui/material/Container';
 import { refreshToken } from '../../service/auth';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ListIcon from '@mui/icons-material/List';
@@ -40,6 +39,7 @@ export default function Products() {
             getBrands();
         }
     }, [products])
+
     useEffect(() => {
         if (searchText) {
             searchProduct(searchText)
@@ -47,6 +47,7 @@ export default function Products() {
             setProducts(products)
         }
     }, [searchText]);
+
     const getNewToken = async () => {
         let response = await refreshToken();
         console.log("new token::" + response.token)
