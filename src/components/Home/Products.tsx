@@ -1,7 +1,9 @@
 import '../Home/css/product.css'
 import { ChangeEvent, useEffect, useState } from "react";
 import { Product } from "../../entity/products";
-import { deleteProduct, getProductList, getProductsCategories } from "../../service/product";
+import {
+    deleteProduct, getProductDetails, getProductList, getProductsCategories, springbootAPICallService
+} from "../../service/product";
 import ProductCategory from '../Product/ProductCategory';
 import ProductComponent from '../Product/Product';
 import Button from '@mui/material/Button';
@@ -26,6 +28,7 @@ export default function Products() {
     const [toggleView, setToggleView] = useState<boolean>(true)
     const [productsPerPage, setProductsPerPage] = useState<number>(12);
     const [sortOption, setSortOption] = useState<string>('Default')
+    const [springbootAPICallmessage, setSpringbootAPICallMessage] = useState<string>()
 
 
     useEffect(() => {
@@ -48,6 +51,7 @@ export default function Products() {
         }
     }, [searchText]);
 
+
     const getNewToken = async () => {
         let response = await refreshToken();
         console.log("new token::" + response.token)
@@ -55,7 +59,7 @@ export default function Products() {
     const getProducts = async () => {
         try {
             setIsLoading(true)
-            // let response = await getProductList()
+            // let response = await getProductDetails()// invokes springboot api 
             let response = await getProductList(Number(productsPerPage));
             setProducts(response)
             setIsLoading(false)
@@ -164,6 +168,12 @@ export default function Products() {
         setSortOption(event.target.value)
         sortProductsByFuntion(event.target.value)
     }
+    const springbootAPICall = async () => {
+        let message = springbootAPICallService();
+        console.log("message:" + String(message))
+        setSpringbootAPICallMessage(await message)
+
+    }
     return (<>
         <div>
             <div className="categories">
@@ -181,6 +191,11 @@ export default function Products() {
                     }
                 </div>
                 {/* </Container> */}
+            </div>
+            <div style={{ color: 'black', backgroundColor: 'pink' }}>
+                <br></br>
+                <div><Button variant='contained' onClick={() => springbootAPICall()}>Click me for Springboot message</Button></div> <div style={{ padding: '4' }}>{springbootAPICallmessage}</div>
+                <br></br>
             </div>
             <div className="product">
                 <header className='product-header'>

@@ -1,6 +1,29 @@
 import { Product } from "../../entity/products"
 import axiosInstance from "../../axios"
 
+export function springbootAPICallService(): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axiosInstance.get('http://localhost:8080/api/test')
+            console.log("response in springbootAPICallService:::" + String(response.data))
+            resolve(response.data)
+        } catch (error) {
+            console.log("Error in springbootAPICallService::" + error)
+            reject(error)
+        }
+    })
+}
+export function getProductDetails(): Promise<Product[]> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = await axiosInstance.get("http://localhost:8080/api/products")
+            resolve(productsInfosToProductsEntities(response.data))
+        } catch (error) {
+            console.log("Error in getProductList::" + error)
+            reject(error)
+        }
+    })
+}
 export function getProductList(value: number): Promise<Product[]> {
     return new Promise(async (resolve, reject) => {
         try {
@@ -91,7 +114,8 @@ export function deleteProduct(id: number): Promise<Product> {
     })
 }
 function productsInfosToProductsEntities(productsInfos: any): Product[] {
-    let products: Product[] = productsInfos.map((productInfo: Product) => productInfoToProductEntity(productInfo))
+    let products: Product[] = productsInfos.map((productInfo: Product) =>
+        productInfoToProductEntity(productInfo))
     return products
 }
 function productInfoToProductEntity(productInfo: any): Product {
